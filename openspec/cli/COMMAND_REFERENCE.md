@@ -777,7 +777,7 @@ npm install -g @anthropic-ai/oracle
 gh extension install github/gh-copilot
 
 # O ai-cli
-# Ver https://archspec.dev
+# Ver https://specleap.com
 ```
 
 ### "Tests fallaron"

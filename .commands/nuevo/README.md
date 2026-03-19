@@ -240,7 +240,7 @@ features:
 
 ```bash
 # 1. Analizar respuestas de ejemplo
-cd /path/to/archspec
+cd /path/to/specleap
 ./scripts/detect-project-type.sh .commands/nuevo/responses-example.yaml
 
 # Output esperado:

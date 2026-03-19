@@ -5,7 +5,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ARCHSPEC_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+SPECLEAP_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 RESPONSES_FILE="${1:-}"
 OUTPUT_DIR="${2:-}"
 
@@ -34,7 +34,7 @@ fi
 
 # Determinar OUTPUT_DIR si no se especificó
 if [[ -z "$OUTPUT_DIR" ]]; then
-    OUTPUT_DIR="$ARCHSPEC_ROOT/proyectos/$PROJECT_NAME"
+    OUTPUT_DIR="$SPECLEAP_ROOT/proyectos/$PROJECT_NAME"
 fi
 
 # Crear directorio del proyecto
@@ -43,7 +43,7 @@ mkdir -p "$OUTPUT_DIR/context"
 mkdir -p "$OUTPUT_DIR/memory-bank"
 
 # Copiar template
-TEMPLATE="$ARCHSPEC_ROOT/proyectos/_template/CONTRATO.md"
+TEMPLATE="$SPECLEAP_ROOT/proyectos/_template/CONTRATO.md"
 OUTPUT_CONTRACT="$OUTPUT_DIR/CONTRATO.md"
 
 if [[ ! -f "$TEMPLATE" ]]; then

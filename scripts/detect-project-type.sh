@@ -5,7 +5,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ARCHSPEC_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+SPECLEAP_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 RESPONSES_FILE="${1:-}"
 
 if [[ -z "$RESPONSES_FILE" || ! -f "$RESPONSES_FILE" ]]; then
