@@ -125,7 +125,7 @@ SpecLeap incluye **20 skills especializadas** que transforman la calidad del có
 
 ## 🎯 Cuestionario Interactivo — De Idea a CONTRATO en 20 Minutos
 
-**Nuevo en SpecLeap:** Sistema de 56 preguntas que genera tu CONTRATO.md automáticamente.
+**Nuevo en SpecLeap:** Sistema de 58 preguntas que genera tu CONTRATO.md automáticamente.
 
 ### ¿Cómo Funciona?
 
@@ -133,7 +133,7 @@ SpecLeap incluye **20 skills especializadas** que transforman la calidad del có
 # Ejecuta el cuestionario
 ./scripts/generate-contrato.sh
 
-# Te hace 56 preguntas sobre tu proyecto
+# Te hace 58 preguntas sobre tu proyecto
 # Guarda progreso cada 10 preguntas (puedes interrumpir)
 # Genera CONTRATO.md completo con YAML frontmatter
 ```
@@ -176,7 +176,7 @@ SpecLeap incluye **20 skills especializadas** que transforman la calidad del có
 ```
 1. Ejecuta cuestionario (20 min)
    ↓
-2. Responde 56 preguntas
+2. Responde 58 preguntas
    ↓
 3. CONTRATO.md generado automáticamente
    ↓
@@ -251,7 +251,7 @@ specleap/
 │   ├── frontend.md
 │   └── producto.md
 ├── .commands/                    # Comandos conversacionales
-│   ├── inicio.md                 # Cuestionario 56 preguntas
+│   ├── inicio.md                 # Cuestionario 58 preguntas
 │   ├── refinar.md
 │   ├── planificar.md
 │   ├── implementar.md
@@ -287,7 +287,7 @@ Habla con Claude/Cursor/Continue usando comandos en español:
 
 ```
 Hola
-→ Inicia cuestionario de 56 preguntas
+→ Inicia cuestionario de 58 preguntas
 → Genera CONTRATO.md completo automáticamente
 ```
 
@@ -386,7 +386,7 @@ SpecLeap está diseñado para trabajar con **cualquier IDE con IA**:
 ## 📚 Documentación Completa
 
 - 📖 [SETUP.md](SETUP.md) — Instalación paso a paso
-- 🎯 [docs/CUESTIONARIO-INTERACTIVO.md](docs/SPEC-CUESTIONARIO-INTERACTIVO.md) — Sistema 56 preguntas
+- 🎯 [docs/CUESTIONARIO-INTERACTIVO.md](docs/SPEC-CUESTIONARIO-INTERACTIVO.md) — Sistema 58 preguntas
 - 💬 [docs/COMANDOS.md](docs/COMANDOS.md) — Referencia comandos
 - 🛠️ [docs/CLI-OPENSPEC.md](docs/CLI-OPENSPEC.md) — CLI formal
 - 🤖 [docs/AGENTES.md](docs/AGENTES.md) — Especialización de agentes
