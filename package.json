@@ -1,0 +1,37 @@
+{
+  "name": "specleap",
+  "version": "1.0.0",
+  "description": "> **Forja tu arquitectura de software con IA — De especificación a código funcionando.**",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iapanderson/specleap.git"
+  },
+  "keywords": [
+    "spec",
+    "architecture",
+    "ai",
+    "sdd",
+    "contract-driven"
+  ],
+  "author": "SpecLeap Contributors",
+  "license": "MIT",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/iapanderson/specleap/issues"
+  },
+  "homepage": "https://specleap.com",
+  "dependencies": {
+    "asana": "^3.1.9",
+    "bcryptjs": "^3.0.3"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6"
+  }
+}

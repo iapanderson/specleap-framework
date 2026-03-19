@@ -1,0 +1,76 @@
+# OpenSpec Configuration
+# DevFlow Pro — Spec-Driven Development
+
+version: "1.0"
+
+# Estructura de directorios
+directories:
+  specs: "specs"           # Source of truth
+  changes: "changes"       # Propuestas de cambios
+  templates: "templates"   # Plantillas
+
+# Dominios de specs
+domains:
+  - functional     # Specs funcionales
+  - technical      # Specs técnicas
+  - integration    # Specs de integración
+  - security       # Specs de seguridad
+
+# Estados de specs
+spec_states:
+  - draft          # Borrador
+  - review         # En revisión
+  - approved       # Aprobada
+  - implemented    # Implementada
+  - deprecated     # Deprecada
+
+# Estados de cambios (propuestas)
+change_states:
+  - draft          # Borrador de propuesta
+  - review         # En revisión
+  - approved       # Aprobada para desarrollo
+  - in_progress    # En desarrollo
+  - testing        # En testing
+  - completed      # Completada
+  - archived       # Archivada
+  - rejected       # Rechazada
+
+# Formato de IDs
+id_format:
+  spec: "SPEC-{number:04d}"        # SPEC-0001
+  change: "CHANGE-{number:04d}"    # CHANGE-0001
+  task: "TASK-{number:03d}"        # TASK-001
+
+# Integración con Jira
+jira:
+  enabled: true
+  project_key: "PROJ"              # Cambiar por proyecto
+  epic_prefix: "Epic: "
+  story_prefix: "Story: "
+  labels:
+    - devflow
+    - has-spec
+    - sdd
+
+# Integración con Git
+git:
+  branch_prefix:
+    feature: "feat/"
+    bugfix: "fix/"
+    hotfix: "hotfix/"
+    docs: "docs/"
+  commit_refs: true                # Incluir refs en commits
+
+# Integración con CodeRabbit
+coderabbit:
+  required: true                   # Obligatorio para PRs
+  profile: assertive               # Perfil de review
+  language: es                     # Idioma de reviews
+
+# Testing
+testing:
+  coverage_threshold:
+    business_logic: 80
+    utilities: 90
+    components: 70
+  report_required: true            # Testing report obligatorio

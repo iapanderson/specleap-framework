@@ -1,0 +1,53 @@
+# Archivo de ejemplo de respuestas
+# Este archivo muestra cómo se guardan las respuestas del cuestionario
+
+# ===== IDENTIDAD =====
+project_name: casa-de-peli
+project_display_name: Casa de Peli
+project_objective: Plataforma web de catálogo y reseñas de películas donde los usuarios pueden descubrir películas, ver detalles y crear listas personalizadas
+problem_solved: Los usuarios no tienen un lugar centralizado para llevar registro de películas vistas, escribir reseñas y gestionar listas de películas
+target_audience: public
+competitors: IMDb, Letterboxd, FilmAffinity
+
+# ===== STACK TECNOLÓGICO =====
+backend_framework: laravel
+frontend_framework: react
+use_typescript: true
+database: postgresql
+css_framework: tailwind
+
+# ===== FUNCIONALIDADES =====
+core_features:
+  - Catálogo de películas con búsqueda y filtros
+  - Sistema de reseñas y calificaciones
+  - Listas personalizadas (favoritas, por ver, vistas)
+  - Autenticación de usuarios
+  - Perfil de usuario
+
+secondary_features:
+  - Feed de actividad reciente
+  - Recomendaciones basadas en gustos
+  - Modo oscuro
+  - Compartir reseñas en redes sociales
+
+needs_auth: email_password
+needs_admin_panel: basic
+file_uploads: cloud
+
+# ===== DISEÑO =====
+color_palette: suggest
+visual_style: modern
+
+# ===== DESPLIEGUE =====
+hosting: hostinger
+needs_ssl: true
+custom_domain: casadepeli.com
+
+# ===== RESTRICCIONES =====
+time_limit: 3 meses
+budget_limit: 500 USD
+out_of_scope:
+  - Streaming de películas (no reproducción)
+  - App móvil nativa
+  - Sistema de pagos
+  - Chat entre usuarios

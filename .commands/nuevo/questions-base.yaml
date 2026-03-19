@@ -1,0 +1,320 @@
+# PREGUNTAS BASE (Obligatorias para todos los proyectos)
+# Estas preguntas determinan el tipo de proyecto y activan preguntas condicionales
+
+version: "1.0"
+category: base
+description: "Preguntas fundamentales que aplican a cualquier tipo de proyecto"
+
+questions:
+  # ===== IDENTIDAD DEL PROYECTO =====
+  - id: project_name
+    section: identity
+    text: "¿Cuál es el nombre del proyecto?"
+    type: text
+    required: true
+    validation: "^[a-z0-9-]+$"
+    help: "Usa formato slug: mi-proyecto-web (solo minúsculas, números y guiones)"
+    
+  - id: project_objective
+    section: identity
+    text: "¿Cuál es el objetivo principal del proyecto?"
+    type: textarea
+    required: true
+    help: "Describe en 1-2 frases qué problema resuelve o qué necesidad cubre"
+    
+  - id: target_audience
+    section: identity
+    text: "¿Quién es el público objetivo?"
+    type: select
+    required: true
+    options:
+      - value: personal
+        label: "Uso personal"
+      - value: team
+        label: "Equipo/empresa específica"
+      - value: public
+        label: "Público general"
+      - value: niche
+        label: "Nicho específico"
+    follow_up:
+      - condition: "niche"
+        question: "Especifica el nicho:"
+        type: text
+        
+  - id: problem_solved
+    section: identity
+    text: "¿Qué problema específico resuelve?"
+    type: textarea
+    required: true
+    
+  - id: competitors
+    section: identity
+    text: "¿Hay algún competidor o referencia? (Ejemplo: 'Como Trello pero para...')"
+    type: text
+    required: false
+
+  # ===== STACK TECNOLÓGICO BASE =====
+  - id: backend_framework
+    section: stack
+    text: "¿Qué framework de backend prefieres?"
+    type: select
+    required: true
+    options:
+      - value: laravel
+        label: "Laravel (PHP)"
+        triggers: [questions-php]
+      - value: nodejs
+        label: "Node.js (Express/NestJS)"
+        triggers: [questions-nodejs]
+      - value: python
+        label: "Python (Django/FastAPI)"
+        triggers: [questions-python]
+      - value: rails
+        label: "Ruby on Rails"
+        triggers: [questions-ruby]
+      - value: other
+        label: "Otro"
+    follow_up:
+      - condition: "other"
+        question: "Especifica el framework:"
+        type: text
+        
+  - id: frontend_framework
+    section: stack
+    text: "¿Qué framework de frontend prefieres?"
+    type: select
+    required: true
+    options:
+      - value: react
+        label: "React"
+        triggers: [questions-react]
+      - value: vue
+        label: "Vue.js"
+        triggers: [questions-vue]
+      - value: angular
+        label: "Angular"
+      - value: svelte
+        label: "Svelte"
+      - value: blade
+        label: "Blade (solo Laravel)"
+        requires: {backend_framework: laravel}
+      - value: none
+        label: "Sin frontend (API/Backend solo)"
+        triggers: [questions-api]
+      - value: other
+        label: "Otro"
+        
+  - id: use_typescript
+    section: stack
+    text: "¿Usar TypeScript en el frontend?"
+    type: boolean
+    required: true
+    depends_on:
+      - frontend_framework: [react, vue, angular, svelte]
+    default: true
+    
+  - id: database
+    section: stack
+    text: "¿Qué base de datos prefieres?"
+    type: select
+    required: true
+    options:
+      - value: postgresql
+        label: "PostgreSQL"
+      - value: mysql
+        label: "MySQL/MariaDB"
+      - value: mongodb
+        label: "MongoDB"
+        triggers: [questions-nosql]
+      - value: sqlite
+        label: "SQLite"
+      - value: other
+        label: "Otro"
+
+  # ===== FUNCIONALIDADES CORE =====
+  - id: core_features
+    section: features
+    text: "Lista las funcionalidades CORE (MVP mínimo viable)"
+    type: multiline
+    required: true
+    help: |
+      Una funcionalidad por línea. Ejemplos:
+      - Login de usuarios
+      - CRUD de productos
+      - Búsqueda de contenido
+      - Carrito de compras
+    analyzer: detect_project_type
+    
+  - id: secondary_features
+    section: features
+    text: "Lista las funcionalidades SECUNDARIAS (nice-to-have)"
+    type: multiline
+    required: false
+    help: |
+      Funcionalidades deseables pero no críticas para el MVP.
+      Ejemplos:
+      - Notificaciones email
+      - Modo oscuro
+      - Exportar a PDF
+      
+  - id: needs_auth
+    section: features
+    text: "¿El proyecto necesita autenticación de usuarios?"
+    type: select
+    required: true
+    options:
+      - value: email_password
+        label: "Sí, email + password"
+        triggers: [questions-auth]
+      - value: oauth
+        label: "Sí, OAuth (Google, GitHub, etc.)"
+        triggers: [questions-auth, questions-oauth]
+      - value: both
+        label: "Ambas opciones"
+        triggers: [questions-auth, questions-oauth]
+      - value: none
+        label: "No necesita autenticación"
+        
+  - id: needs_admin_panel
+    section: features
+    text: "¿Necesita panel de administración?"
+    type: select
+    required: true
+    options:
+      - value: full
+        label: "Sí, completo (CRUD de todo)"
+        triggers: [questions-admin]
+      - value: basic
+        label: "Sí, básico (solo usuarios y config)"
+        triggers: [questions-admin]
+      - value: none
+        label: "No"
+        
+  - id: file_uploads
+    section: features
+    text: "¿Necesita subida de archivos/imágenes?"
+    type: select
+    required: true
+    options:
+      - value: local
+        label: "Sí, almacenamiento local"
+      - value: cloud
+        label: "Sí, cloud (S3, Cloudinary...)"
+        triggers: [questions-storage]
+      - value: none
+        label: "No"
+
+  # ===== DESPLIEGUE =====
+  - id: hosting
+    section: deployment
+    text: "¿Dónde se desplegará el proyecto?"
+    type: select
+    required: true
+    options:
+      - value: hostinger
+        label: "Hostinger"
+      - value: aws
+        label: "AWS"
+        triggers: [questions-aws]
+      - value: digitalocean
+        label: "DigitalOcean"
+      - value: vercel
+        label: "Vercel/Netlify (frontend) + otro (backend)"
+      - value: local
+        label: "Local/desarrollo solamente"
+      - value: other
+        label: "Otro"
+        
+  - id: needs_ssl
+    section: deployment
+    text: "¿Necesita SSL/HTTPS?"
+    type: boolean
+    required: true
+    default: true
+    
+  - id: custom_domain
+    section: deployment
+    text: "¿Necesita dominio personalizado?"
+    type: text
+    required: false
+    help: "Deja vacío si usarás subdominio temporal"
+
+  # ===== DISEÑO =====
+  - id: color_palette
+    section: design
+    text: "¿Tienes una paleta de colores definida?"
+    type: select
+    required: true
+    options:
+      - value: custom
+        label: "Sí, tengo colores específicos"
+      - value: suggest
+        label: "No, sugiéreme una"
+      - value: default
+        label: "Usar defaults de Tailwind/Bootstrap"
+    follow_up:
+      - condition: "custom"
+        question: "Especifica colores (primario, secundario, acento):"
+        type: text
+        
+  - id: visual_style
+    section: design
+    text: "¿Qué estilo visual prefieres?"
+    type: select
+    required: true
+    options:
+      - value: minimal
+        label: "Minimalista (Vercel-style)"
+      - value: modern
+        label: "Moderno (Gradientes, glassmorphism)"
+      - value: professional
+        label: "Profesional (Corporate, serio)"
+      - value: creative
+        label: "Creativo (Ilustraciones, colores vivos)"
+      - value: other
+        label: "Otro"
+
+  # ===== RESTRICCIONES =====
+  - id: time_limit
+    section: constraints
+    text: "¿Hay límite de tiempo para el MVP?"
+    type: text
+    required: false
+    help: "Ejemplos: 2 semanas, 3 meses, sin prisa..."
+    
+  - id: budget_limit
+    section: constraints
+    text: "¿Hay presupuesto máximo para servicios externos?"
+    type: text
+    required: false
+    help: "Para hosting, APIs, servicios de terceros..."
+    
+  - id: out_of_scope
+    section: constraints
+    text: "¿Qué NO debe incluir el proyecto?"
+    type: multiline
+    required: false
+    help: |
+      Cosas que explícitamente quedan fuera del alcance.
+      Ejemplos:
+      - No app móvil nativa
+      - No sistema de pagos
+      - No chat en vivo
+
+# ===== ANALIZADORES =====
+analyzers:
+  detect_project_type:
+    description: "Detecta el tipo de proyecto basándose en las funcionalidades listadas"
+    triggers:
+      - keywords: [login, usuario, registro, perfil, auth]
+        activate: questions-auth
+      - keywords: [pago, compra, carrito, stripe, paypal]
+        activate: questions-ecommerce
+      - keywords: [suscripción, plan, billing, mensualidad]
+        activate: questions-saas
+      - keywords: [api, endpoint, rest, graphql]
+        activate: questions-api
+      - keywords: [blog, post, artículo, contenido, cms]
+        activate: questions-cms
+      - keywords: [chat, mensaje, notificación, tiempo real]
+        activate: questions-realtime

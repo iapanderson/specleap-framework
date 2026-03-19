@@ -1,0 +1,49 @@
+# Cline Rules — DevFlow Pro SDD
+
+## Metodología
+Spec-Driven Development: Primero la especificación, luego el código.
+
+## Estructura del Proyecto
+```
+openspec/
+├── specs/           # Source of truth
+├── changes/         # Propuestas de cambios  
+└── templates/       # Plantillas
+```
+
+## Antes de Codificar
+1. Verificar si existe spec en `openspec/specs/`
+2. Si no existe, crear spec primero
+3. Crear propuesta en `openspec/changes/CHANGE-XXXX-nombre/`
+
+## Formato de Specs
+- Escenarios BDD: GIVEN/WHEN/THEN
+- Requisitos RFC-2119: SHALL, SHOULD, MAY
+- Estados: draft → review → approved → implemented
+
+## Estándares de Código
+- Código en inglés, comentarios en español
+- TypeScript strict mode cuando aplique
+- Tests obligatorios (80%+ cobertura lógica de negocio)
+
+## Commits
+```
+tipo(alcance): descripción en español
+
+## Qué se hizo
+## Por qué
+## Refs: Jira/Spec
+```
+
+## Testing Report
+OBLIGATORIO para cada feature:
+- Tests y resultados
+- Cobertura
+- Status review
+
+## Reglas Importantes
+1. NUNCA codificar sin spec
+2. NUNCA merge sin tests
+3. NUNCA deploy sin review
+4. SIEMPRE documentar en español
+5. SIEMPRE referenciar Jira y Spec en commits

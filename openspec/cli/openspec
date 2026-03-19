@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+# OpenSpec CLI — Spec-Driven Development
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Helper functions
+info() { echo -e "${BLUE}ℹ${NC} $*"; }
+success() { echo -e "${GREEN}✓${NC} $*"; }
+warning() { echo -e "${YELLOW}⚠${NC} $*"; }
+error() { echo -e "${RED}✗${NC} $*" >&2; }
+
+usage() {
+    cat <<EOF
+OpenSpec CLI — Spec-Driven Development
+
+USAGE:
+    openspec <command> [options]
+
+COMMANDS:
+    enrich       Refinar user story con AI
+    new          Crear nueva propuesta de cambio
+    ff           Fast-forward: generar propuesta completa
+    apply        Implementar propuesta aprobada
+    verify       Verificar tests y specs
+    implement    Aplicar cambios de code review
+    code-review  Solicitar review de CodeRabbit
+    archive      Archivar propuesta completada
+    report       Generar testing report
+    status       Ver estado de propuestas activas
+
+OPTIONS:
+    -h, --help   Mostrar esta ayuda
+    -v, --version Mostrar versión
+
+EXAMPLES:
+    openspec enrich "Como usuario quiero login"
+    openspec new CHANGE-001 "Implementar autenticación"
+    openspec ff CHANGE-001
+    openspec apply CHANGE-001
+    openspec verify CHANGE-001
+    openspec code-review CHANGE-001
+    openspec archive CHANGE-001
+
+DOCS:
+    openspec/README.md
+    https://github.com/iapanderson/archspec
+
+EOF
+}
+
+# Parse command
+COMMAND="${1:-}"
+if [[ -z "$COMMAND" ]] || [[ "$COMMAND" == "-h" ]] || [[ "$COMMAND" == "--help" ]]; then
+    usage
+    exit 0
+fi
+
+if [[ "$COMMAND" == "-v" ]] || [[ "$COMMAND" == "--version" ]]; then
+    echo "OpenSpec CLI v1.0.0"
+    exit 0
+fi
+
+# Dispatch to subcommand
+SUBCOMMAND_SCRIPT="$SCRIPT_DIR/$COMMAND.sh"
+if [[ ! -f "$SUBCOMMAND_SCRIPT" ]]; then
+    error "Comando desconocido: $COMMAND"
+    echo ""
+    usage
+    exit 1
+fi
+
+shift
+exec "$SUBCOMMAND_SCRIPT" "$@"

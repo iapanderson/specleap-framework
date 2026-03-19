@@ -1,0 +1,261 @@
+# CodeRabbit Configuration — DevFlow Pro
+# Copiar este archivo a la raíz de cada repositorio
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+
+# Idioma de los reviews
+language: "es"
+
+# Tono personalizado
+tone_instructions: |
+  Eres un reviewer senior enfocado en calidad y mantenibilidad.
+  Sé constructivo pero riguroso. Señala problemas de seguridad como críticos.
+  Verifica que el código sigue las specs definidas en openspec/.
+  Idioma: español.
+
+# Configuración de reviews
+reviews:
+  # Perfil: assertive = más feedback (recomendado para equipos que buscan calidad)
+  profile: "assertive"
+  
+  # Workflow de cambios solicitados
+  request_changes_workflow: true
+  
+  # Resumen de alto nivel
+  high_level_summary: true
+  high_level_summary_in_walkthrough: true
+  
+  # Diagramas de secuencia
+  sequence_diagrams: true
+  
+  # Estimación de esfuerzo de review
+  estimate_code_review_effort: true
+  
+  # Evaluar issues vinculados
+  assess_linked_issues: true
+  
+  # Sugerir labels
+  suggested_labels: true
+  labeling_instructions:
+    - label: "needs-spec"
+      instructions: "Aplicar cuando el PR no tiene spec de referencia en openspec/"
+    - label: "has-tests"
+      instructions: "Aplicar cuando el PR incluye tests"
+    - label: "breaking-change"
+      instructions: "Aplicar cuando hay cambios que rompen compatibilidad"
+    - label: "security"
+      instructions: "Aplicar cuando hay cambios relacionados con seguridad"
+    - label: "performance"
+      instructions: "Aplicar cuando hay optimizaciones de rendimiento"
+  
+  # Auto-aplicar labels sugeridos
+  auto_apply_labels: true
+  
+  # Sugerir reviewers
+  suggested_reviewers: true
+  
+  # Sin poemas ni fortunes (profesional)
+  poem: false
+  in_progress_fortune: false
+  
+  # Path filters - excluir archivos generados
+  path_filters:
+    - "!**/node_modules/**"
+    - "!**/vendor/**"
+    - "!**/dist/**"
+    - "!**/build/**"
+    - "!**/*.min.js"
+    - "!**/*.min.css"
+    - "!**/package-lock.json"
+    - "!**/composer.lock"
+    - "!**/*.generated.*"
+  
+  # Instrucciones por ruta
+  path_instructions:
+    - path: "src/**"
+      instructions: |
+        Verificar:
+        - TypeScript strict mode
+        - Manejo de errores
+        - Tipos correctos (no any)
+        - Comentarios en español
+    
+    - path: "**/*.spec.ts"
+      instructions: |
+        Verificar:
+        - Cobertura de casos edge
+        - Nombres descriptivos en español
+        - Arrange-Act-Assert pattern
+    
+    - path: "**/*.test.ts"
+      instructions: |
+        Verificar:
+        - Cobertura de casos edge
+        - Nombres descriptivos en español
+        - Arrange-Act-Assert pattern
+    
+    - path: "openspec/**"
+      instructions: |
+        Verificar:
+        - Formato correcto de spec
+        - GIVEN/WHEN/THEN completos
+        - Criterios de aceptación claros
+        - Referencias cruzadas válidas
+    
+    - path: "**/*.php"
+      instructions: |
+        Verificar:
+        - PSR-12 compliance
+        - Type hints en parámetros y retornos
+        - Validación de inputs
+        - Sin SQL raw (usar Eloquent)
+    
+    - path: "**/migrations/**"
+      instructions: |
+        Verificar:
+        - Migración reversible
+        - Índices necesarios
+        - Sin pérdida de datos
+    
+    - path: "docs/**"
+      instructions: |
+        Verificar:
+        - Español correcto
+        - Enlaces funcionan
+        - Ejemplos actualizados
+  
+  # Auto review
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    drafts: false
+    ignore_title_keywords:
+      - "WIP"
+      - "DO NOT MERGE"
+      - "DRAFT"
+    labels:
+      - "!skip-review"
+  
+  # Finishing touches
+  finishing_touches:
+    docstrings:
+      enabled: true
+    unit_tests:
+      enabled: true
+  
+  # Pre-merge checks
+  pre_merge_checks:
+    docstrings:
+      mode: "warning"
+      threshold: 80
+    title:
+      mode: "warning"
+      requirements: |
+        El título debe seguir conventional commits:
+        tipo(alcance): descripción
+        Tipos: feat, fix, refactor, docs, test, chore, style, perf
+    description:
+      mode: "warning"
+    issue_assessment:
+      mode: "warning"
+    custom_checks:
+      - name: "Spec Reference"
+        mode: "warning"
+        instructions: |
+          Verificar que el PR hace referencia a una spec en openspec/.
+          El PR description debe incluir una línea como:
+          Spec: openspec/specs/domain/nombre.spec.md
+          Si no hay spec, el check falla.
+      - name: "Testing Report"
+        mode: "warning"
+        instructions: |
+          Verificar que el PR incluye resultados de tests.
+          Debe haber evidencia de que los tests pasan.
+          Si es un cambio de código, debe haber tests nuevos o modificados.
+
+# Herramientas de análisis
+tools:
+  # JavaScript/TypeScript
+  eslint:
+    enabled: true
+  biome:
+    enabled: true
+  
+  # PHP
+  phpstan:
+    enabled: true
+    level: "max"
+  phpcs:
+    enabled: true
+  phpmd:
+    enabled: true
+  
+  # Python (si aplica)
+  ruff:
+    enabled: true
+  pylint:
+    enabled: true
+  
+  # Seguridad
+  gitleaks:
+    enabled: true
+  semgrep:
+    enabled: true
+  
+  # Markdown/Docs
+  markdownlint:
+    enabled: true
+  languagetool:
+    enabled: true
+    level: "picky"
+  
+  # YAML
+  yamllint:
+    enabled: true
+  
+  # Docker
+  hadolint:
+    enabled: true
+  
+  # GitHub Actions
+  actionlint:
+    enabled: true
+  
+  # Shell
+  shellcheck:
+    enabled: true
+
+# Chat
+chat:
+  auto_reply: true
+  art: false
+  integrations:
+    jira:
+      usage: "enabled"
+    linear:
+      usage: "disabled"
+
+# Knowledge base
+knowledge_base:
+  opt_out: false
+  web_search:
+    enabled: true
+  code_guidelines:
+    enabled: true
+    filePatterns:
+      - "**/AGENTS.md"
+      - "**/CLAUDE.md"
+      - "**/.cursorrules"
+      - "**/openspec/**/*.md"
+  learnings:
+    scope: "global"
+  issues:
+    scope: "global"
+  jira:
+    usage: "enabled"
+  pull_requests:
+    scope: "global"
+
+# Generación de código
+code_generation:
+  docstrings:
+    language: "es"

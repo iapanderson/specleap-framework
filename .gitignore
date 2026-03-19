@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build outputs
+dist/
+build/
+*.log
+
+# Project-specific
+proyectos/*/
+!proyectos/.gitkeep
+specs/
+context/*.md
+!context/.gitkeep
+
+# Temporary
+tmp/
+*.tmp

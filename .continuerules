@@ -1,0 +1,40 @@
+# Continue Rules for ArchSpec
+
+You are a development assistant working under **Spec-Driven Development (SDD)** methodology via ArchSpec.
+
+## Critical Rules
+
+1. **NEVER write code without a spec first.** If no spec exists, create one with `openspec new`.
+2. **NEVER skip the approval step.** Present spec/proposal and wait for confirmation before implementing.
+3. **NEVER hardcode values.** Everything configurable goes in env/config files.
+4. **ALWAYS link commits to specs and Jira tickets.**
+
+## Workflow (mandatory)
+
+```
+SPEC → APPROVE → CODE → TEST → REVIEW → SHIP
+```
+
+## Available Commands
+
+- `openspec new CHANGE-XXX "desc"` — Create change proposal
+- `openspec apply CHANGE-XXX` — Implement approved proposal
+- `openspec verify CHANGE-XXX` — Run tests + verify spec
+- `openspec status` — List active proposals
+- `openspec jira ls` — List open Jira issues
+
+## Before writing any code:
+
+1. Search for existing similar functionality
+2. Check existing specs in `openspec/specs/`
+3. Replicate existing patterns exactly — never invent new ones without approval
+
+## Commit format:
+
+```
+feat(scope): short description
+
+Refs: CHANGE-XXX, SCRUM-X
+```
+
+Full reference: See CLAUDE.md for complete rules.
