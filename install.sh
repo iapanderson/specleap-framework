@@ -111,9 +111,11 @@ cat > .specleap/config.json <<EOF
   "version": "1.0.0",
   "language": "${SPECLEAP_LANG}",
   "installed_at": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
-  "project_name": "",
-  "jira_enabled": false,
-  "asana_enabled": false
+  "features": {
+    "asana_integration": false,
+    "coderabbit_integration": false,
+    "agent_skills_installed": false
+  }
 }
 EOF
 
@@ -122,16 +124,10 @@ if [ ! -f .env ]; then
     cat > .env <<EOF
 # SpecLeap Configuration
 SPECLEAP_LANG=${SPECLEAP_LANG}
-SPECLEAP_PROJECT_NAME=""
 
-# Asana (optional)
+# Asana Integration (optional - for automatic backlog generation)
 ASANA_ACCESS_TOKEN=""
 ASANA_WORKSPACE_ID=""
-
-# Jira (optional)
-JIRA_HOST=""
-JIRA_EMAIL=""
-JIRA_API_TOKEN=""
 EOF
 fi
 
