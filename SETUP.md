@@ -58,7 +58,42 @@ ls -la
 # etc.
 ```
 
-### Paso 4: Listo para Usar
+### Paso 4: Instalar Git Hooks (Validación Automática)
+
+**IMPORTANTE:** Instala git hooks para validación automática antes de cada commit.
+
+```bash
+cd tu-proyecto
+bash scripts/install-git-hooks.sh
+```
+
+**Qué hace:**
+- ✅ Valida linters antes de cada commit
+- ✅ Valida formatters (Prettier, PHP-CS-Fixer)
+- ✅ Previene commits con código debug (console.log, var_dump)
+- ✅ Previene modificación de CONTRATO.md (es inmutable)
+- ⚡ Rápido (<5 segundos)
+
+**Resultado:**
+```
+git commit -m "feat: add login"
+→ 🔍 SpecLeap: Validando commit...
+→   ✓ ESLint: OK
+→   ✓ Prettier: OK
+→   ✓ PHPStan: OK
+→ ✅ Validación pre-commit exitosa
+```
+
+**Si falla:** El commit es rechazado y muestra errores a corregir.
+
+**Para saltarte (NO recomendado):**
+```bash
+git commit --no-verify -m "mensaje"
+```
+
+---
+
+### Paso 5: Listo para Usar
 
 Abre el proyecto en tu IDE favorito:
 

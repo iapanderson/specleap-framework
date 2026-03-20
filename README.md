@@ -439,30 +439,117 @@ openspec apply CHANGE-015
 
 ---
 
-## 🔧 Code Reviews Automáticos (CodeRabbit)
+## 🛡️ Sistema de Validación en 3 Capas
 
-**SpecLeap incluye configuración CodeRabbit** para todos los proyectos:
+SpecLeap garantiza calidad de código con **3 capas de validación automática**:
 
-✅ **Qué hace:**
-- Reviews automáticos de PRs en español
-- Verifica specs y testing reports
-- Detecta problemas de seguridad
-- Sugiere mejoras de código
-- Profile "assertive" (riguroso pero constructivo)
+### **🔹 Capa 1: Git Hooks Pre-Commit** (Validación rápida - <5 seg)
 
-✅ **Setup:**
+**Se ejecuta ANTES de cada commit automáticamente.**
+
+✅ **Valida:**
+- Sintaxis (PHP, JS/TS)
+- Linters (ESLint, PHPStan)
+- Formatters (Prettier, PHP-CS-Fixer)
+- CONTRATO.md no se modifica (es inmutable)
+- No hay console.log / var_dump olvidados
+
+❌ **Si falla:** Rechaza el commit y muestra errores
+
+**Instalación:**
 ```bash
-# El archivo .coderabbit.yaml ya está incluido
-# Solo necesitas activar CodeRabbit en tu repo GitHub:
-# 1. Instala la app: https://github.com/apps/coderabbit-ai
-# 2. Abre un PR → CodeRabbit revisará automáticamente
+cd tu-proyecto
+bash scripts/install-git-hooks.sh
 ```
 
-✅ **Funciona con AMBOS workflows:**
-- Conversacional: Haces PR normal → CodeRabbit revisa
-- CLI: `openspec code-review CHANGE-001` → Gatilla review manualmente
+**Para saltarte (NO recomendado):**
+```bash
+git commit --no-verify -m "mensaje"
+```
 
-**Más info:** Ver `.coderabbit.yaml` en la raíz del proyecto
+---
+
+### **🔹 Capa 2: Validación Completa en `implementar`** (1-5 min)
+
+**Se ejecuta al terminar una feature antes de push.**
+
+✅ **Valida:**
+- Tests unitarios
+- Tests de integración
+- Validación vs CONTRATO.md
+- Validación vs specs
+- Coverage > 80%
+
+❌ **Si falla:** NO hace push ni crea PR
+
+✅ **Si pasa:** Commit + Push + Crea PR automáticamente
+
+**Uso:**
+```
+implementar "login con Google"
+→ Escribe código
+→ Valida TODO automáticamente
+→ Si pasa: push + PR creado
+```
+
+---
+
+### **🔹 Capa 3: CodeRabbit en PR** (Revisión profunda - 5-10 min)
+
+**Se ejecuta automáticamente al crear PR en GitHub.**
+
+✅ **Valida:**
+- Arquitectura y patrones
+- Seguridad (vulnerabilidades)
+- Lógica de negocio
+- Cumplimiento de specs
+- Complejidad ciclomática
+- Documentación
+
+✅ **Comenta en el PR con:**
+- Problemas encontrados
+- Sugerencias de mejora
+- Labels automáticos
+- Estimación de esfuerzo de review
+
+**Setup:**
+```bash
+# 1. .coderabbit.yaml ya está incluido en SpecLeap
+# 2. Instala CodeRabbit en tu repo: https://github.com/apps/coderabbit-ai
+# 3. Crea un PR → CodeRabbit revisa automáticamente
+```
+
+**Perfil configurado:** "assertive" (riguroso pero constructivo)  
+**Idioma:** Español  
+**Más info:** Ver `.coderabbit.yaml`
+
+---
+
+### **🎯 Resultado: Código de Calidad Garantizado**
+
+```
+Escribes código
+     ↓
+🔹 Capa 1: Pre-commit hook valida básicos
+     ↓ (si pasa)
+git commit exitoso
+     ↓
+Comando `implementar` termina
+     ↓
+🔹 Capa 2: Validación completa (tests + specs)
+     ↓ (si pasa)
+Push + PR creado
+     ↓
+🔹 Capa 3: CodeRabbit revisa arquitectura + seguridad
+     ↓
+Merge (solo si las 3 capas pasan)
+```
+
+**Beneficios:**
+- ✅ Menos bugs en producción
+- ✅ Code reviews más rápidos (lo obvio ya está validado)
+- ✅ Aprendes de CodeRabbit (explica el "por qué")
+- ✅ Cumplimiento de specs garantizado
 
 ---
 

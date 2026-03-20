@@ -85,7 +85,31 @@ C) **Cancelar** — No implementar por ahora
 
 ---
 
-### 3. Identificar Directorio del Proyecto
+### 3. Sistema de Validación en 3 Capas
+
+**SpecLeap usa 3 capas de validación para garantizar calidad:**
+
+**🔹 Capa 1: Git Hook Pre-Commit (Automático)**
+- Se ejecuta ANTES de cada commit
+- Valida: Linters, formatters, syntax
+- Rápido (<5 segundos)
+- Previene commits obviamente malos
+
+**🔹 Capa 2: Comando `implementar` (Completo)**
+- Se ejecuta al terminar feature
+- Valida: Tests unitarios + integración + specs
+- Completo (~1-5 minutos)
+- Si pasa: hace commit + push + crea PR
+
+**🔹 Capa 3: CodeRabbit en PR (Revisión profunda)**
+- Se ejecuta automáticamente al crear PR
+- Valida: Arquitectura, seguridad, lógica de negocio
+- Profundo (~5-10 minutos)
+- Comenta en el PR con mejoras
+
+---
+
+### 4. Identificar Directorio del Proyecto
 
 Pregunta dónde está el código:
 ```markdown
