@@ -26,7 +26,7 @@ Guía completa para configurar SpecLeap en tu entorno de desarrollo.
 ### Paso 1: Clonar Repositorio
 
 ```bash
-git clone https://github.com/iapanderson/specleap.git
+git clone https://github.com/iapanderson/specleap-framework.git
 cd specleap/
 ```
 
@@ -428,7 +428,7 @@ Ver `proyectos/_template/` para estructura modelo.
 
 ### Comunidad
 
-- 🐛 **Issues:** [github.com/iapanderson/specleap/issues](https://github.com/iapanderson/specleap/issues)
+- 🐛 **Issues:** [github.com/iapanderson/specleap/issues](https://github.com/iapanderson/specleap-framework/issues)
 - 💬 **Discusiones:** (próximamente Discord/Slack)
 
 ---

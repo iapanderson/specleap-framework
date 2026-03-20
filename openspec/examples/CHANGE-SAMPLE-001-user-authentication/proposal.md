@@ -5,7 +5,7 @@
 | ID | CHANGE-SAMPLE-001 |
 | Fecha | 2026-02-12 |
 | Estado | completed |
-| Autor | Pamela Anderson |
+| Autor | SpecLeap Contributor |
 | Prioridad | high |
 | Jira | PROJ-123 |
 

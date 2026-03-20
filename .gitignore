@@ -33,3 +33,6 @@ context/*.md
 # Temporary
 tmp/
 *.tmp
+
+# Ko-fi assets
+kofi-images/

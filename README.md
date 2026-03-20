@@ -41,7 +41,7 @@ SpecLeap transforma cualquier IDE con asistente de IA en una máquina de desarro
 ### Paso 1: Clonar el Repositorio
 
 ```bash
-git clone https://github.com/iapanderson/specleap.git
+git clone https://github.com/iapanderson/specleap-framework.git
 cd specleap/
 chmod +x install.sh
 ./install.sh
@@ -56,9 +56,25 @@ El instalador te permitirá seleccionar tu idioma preferido (Español o English)
 - ✅ Hace ejecutables todos los scripts
 - ✅ Configura traducciones automáticas
 
-### Paso 2: Configurar Asana + Skills (Recomendado)
+### Paso 2: Configurar GitHub + Asana (Necesario para Workflow Profesional)
 
-SpecLeap funciona mejor con **Asana configurado** y **20 Agent Skills** (recomendado):
+**¿Por qué GitHub + Asana?**
+
+SpecLeap está diseñado para **desarrollo profesional spec-first**. Para que funcione correctamente necesitas:
+
+✅ **GitHub** (OBLIGATORIO):
+- Almacena CONTRATO.md versionado
+- Source of truth del proyecto
+- Historial de cambios y decisiones
+- Colaboración en equipo
+
+✅ **Asana** (OBLIGATORIO para workflow completo):
+- Genera backlog automático desde CONTRATO.md
+- Trackea progreso de implementación
+- Organiza épicas y tareas
+- Integración con comandos SpecLeap
+
+**Instalación:**
 
 ```bash
 bash scripts/setup-mcp.sh
@@ -70,6 +86,8 @@ El script instalará automáticamente:
 - ✅ **Context7 MCP** (opcional) — Docs actualizadas de librerías
 
 **Tiempo:** ~5 minutos total
+
+**⚠️ Sin GitHub/Asana:** SpecLeap funciona parcialmente (solo generación de CONTRATO local), pero pierdes el workflow profesional completo.
 
 **Detalle completo:** Ver [SETUP.md](SETUP.md)
 
@@ -180,10 +198,14 @@ SpecLeap incluye **20 skills especializadas** que transforman la calidad del có
    ↓
 3. CONTRATO.md generado automáticamente
    ↓
-4. planificar → crea backlog Asana
+4. Push a GitHub (OBLIGATORIO — control de versiones)
    ↓
-5. implementar → desarrolla según spec
+5. planificar → crea backlog Asana
+   ↓
+6. implementar → desarrolla según spec
 ```
+
+**⚠️ IMPORTANTE:** El CONTRATO.md DEBE guardarse en GitHub. Es la fuente de verdad del proyecto y debe estar versionado junto con el código.
 
 ### Ejemplo de Uso
 
@@ -359,27 +381,24 @@ openspec verify 001-carrito-compras
 
 ---
 
-## 🎨 Copilot + SpecLeap
+## 🎨 Funciona con tu IDE Favorito
 
-SpecLeap está diseñado para trabajar con **cualquier IDE con IA**:
+**SpecLeap es agnóstico al IDE.** Funciona con **cualquier editor que tenga asistente de IA**:
 
-### Claude (Cursor/Continue)
-- ✅ Comandos conversacionales en español
-- ✅ Lee CLAUDE.md automáticamente
-- ✅ Integración con Agent Skills
-- ✅ Memory-bank en context/
+- ✅ **VSCode** — Con GitHub Copilot, Claude Code, Cursor extension
+- ✅ **Cursor** — IDE nativo con Claude integrado
+- ✅ **JetBrains** (IntelliJ, PhpStorm, WebStorm) — Con AI Assistant
+- ✅ **Vim/Neovim** — Con plugins de IA (copilot.vim, etc.)
+- ✅ **Zed** — Editor moderno con IA integrada
+- ✅ **Continue.dev** — Compatible con múltiples IDEs
+- ✅ **Cualquier IDE con asistente IA** — Si tu editor tiene IA, SpecLeap funciona
 
-### GitHub Copilot (VSCode)
-- ✅ Usa `.github/copilot-instructions.md`
-- ✅ Standards en rules/
-- ✅ Workflow via CLI openspec
+**Cómo funciona:**
+- Lee archivos del proyecto (CLAUDE.md, GEMINI.md, .cursorrules, .copilot-instructions.md)
+- Aplica Agent Skills automáticamente
+- Usa comandos conversacionales o CLI según tu preferencia
 
-### Gemini Code Assist
-- ✅ Lee GEMINI.md
-- ✅ Comandos via comentarios especiales
-- ✅ Integración con scripts/
-
-**Recomendado:** Claude (Cursor/Continue) para aprovechar comandos conversacionales.
+**No hay IDE "recomendado"** — Usa el que más te guste. SpecLeap se adapta.
 
 ---
 
@@ -433,9 +452,9 @@ MIT License - Ver [LICENSE](LICENSE)
 ## 🔗 Enlaces
 
 - 🌐 **Website:** [specleap.com](https://specleap.com)
-- 📦 **GitHub:** [github.com/iapanderson/specleap](https://github.com/iapanderson/specleap)
+- 📦 **GitHub:** [github.com/iapanderson/specleap](https://github.com/iapanderson/specleap-framework)
 - 💬 **Comunidad:** (próximamente Discord/Slack)
-- 📧 **Contacto:** [Abrir Issue en GitHub](https://github.com/iapanderson/specleap/issues)
+- 📧 **Contacto:** [Abrir Issue en GitHub](https://github.com/iapanderson/specleap-framework/issues)
 
 ---
 

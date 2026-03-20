@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iapanderson/specleap.git"
+    "url": "git+https://github.com/iapanderson/specleap-framework.git"
   },
   "keywords": [
     "spec",
@@ -24,12 +24,13 @@
   "license": "MIT",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/iapanderson/specleap/issues"
+    "url": "https://github.com/iapanderson/specleap-framework/issues"
   },
   "homepage": "https://specleap.com",
   "dependencies": {
     "asana": "^3.1.9",
-    "bcryptjs": "^3.0.3"
+    "bcryptjs": "^3.0.3",
+    "puppeteer": "^24.40.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6"

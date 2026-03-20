@@ -701,8 +701,8 @@ openspec status --format list
 ```
 ID          | Título                          | Estado       | Prioridad | Autor        | Fecha
 ------------|--------------------------------|--------------|-----------|--------------|----------
-CHANGE-001  | Autenticación JWT              | in_progress  | high      | Pamela       | 2026-02-12
-CHANGE-002  | Sistema notificaciones         | draft        | medium    | Pamela       | 2026-02-13
+CHANGE-001  | Autenticación JWT              | in_progress  | high      | SpecLeap Team       | 2026-02-12
+CHANGE-002  | Sistema notificaciones         | draft        | medium    | SpecLeap Team       | 2026-02-13
 CHANGE-003  | Optimizar queries DB           | testing      | high      | Backend Team | 2026-02-10
 
 Total: 3 propuesta(s)

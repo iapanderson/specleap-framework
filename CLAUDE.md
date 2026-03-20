@@ -353,4 +353,4 @@ If configured, use for:
 
 ---
 
-*Made with ❤️ by Conceptual Creative*
+*Made with ❤️ by the SpecLeap Community*

@@ -6,7 +6,7 @@
 | Propuesta | `proposal.md` |
 | Fecha | 2026-02-12 |
 | Estado | approved |
-| Arquitecto | Pamela Anderson |
+| Arquitecto | SpecLeap Contributor |
 
 ## Resumen del Diseño
 
