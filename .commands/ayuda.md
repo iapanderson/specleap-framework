@@ -83,7 +83,6 @@ openspec apply CHANGE-001
 - ✅ Necesitas propuestas de cambio formales y trazables
 - ✅ Quieres workflow estructurado (propuesta → diseño → implementación → review → archivo)
 - ✅ Necesitas auditoría completa de cambios
-- ✅ Integras con CodeRabbit para code reviews automáticos
 
 **Perfecto para:** Empresas, equipos distribuidos, proyectos enterprise, compliance/auditoría
 

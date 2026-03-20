@@ -396,8 +396,7 @@ openspec archive CHANGE-001   # Archiva completado
 **Cuándo usarlo:**
 - ✅ Equipos grandes (4+ devs) o distribuidos
 - ✅ Necesitas propuestas de cambio formales y trazables
-- ✅ Workflow enterprise con auditoría
-- ✅ Integración con CodeRabbit para code reviews
+- ✅ Workflow enterprise con auditoría y trazabilidad completa
 
 ---
 
@@ -440,16 +439,43 @@ openspec apply CHANGE-015
 
 ---
 
+## 🔧 Code Reviews Automáticos (CodeRabbit)
+
+**SpecLeap incluye configuración CodeRabbit** para todos los proyectos:
+
+✅ **Qué hace:**
+- Reviews automáticos de PRs en español
+- Verifica specs y testing reports
+- Detecta problemas de seguridad
+- Sugiere mejoras de código
+- Profile "assertive" (riguroso pero constructivo)
+
+✅ **Setup:**
+```bash
+# El archivo .coderabbit.yaml ya está incluido
+# Solo necesitas activar CodeRabbit en tu repo GitHub:
+# 1. Instala la app: https://github.com/apps/coderabbit-ai
+# 2. Abre un PR → CodeRabbit revisará automáticamente
+```
+
+✅ **Funciona con AMBOS workflows:**
+- Conversacional: Haces PR normal → CodeRabbit revisa
+- CLI: `openspec code-review CHANGE-001` → Gatilla review manualmente
+
+**Más info:** Ver `.coderabbit.yaml` en la raíz del proyecto
+
+---
+
 ## 📚 Documentación Completa
 
 - 📖 [SETUP.md](SETUP.md) — Instalación paso a paso
-- 🎯 [docs/CUESTIONARIO-INTERACTIVO.md](docs/SPEC-CUESTIONARIO-INTERACTIVO.md) — Sistema 58 preguntas
-- 💬 [docs/COMANDOS.md](docs/COMANDOS.md) — Referencia comandos
-- 🛠️ [docs/CLI-OPENSPEC.md](docs/CLI-OPENSPEC.md) — CLI formal
-- 🤖 [docs/AGENTES.md](docs/AGENTES.md) — Especialización de agentes
-- ⭐ [docs/SKILLS-REFERENCE.md](docs/SKILLS-REFERENCE.md) — 20 Agent Skills
-- 📋 [docs/CONTRATO-TEMPLATE.md](docs/CONTRATO-TEMPLATE.md) — Template contrato
-- 🏗️ [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md) — Filosofía y diseño
+- 🎯 `.commands/inicio.md` — Sistema 58 preguntas interactivo
+- 💬 `.commands/ayuda.md` — Lista completa de comandos
+- 🛠️ `openspec/README.md` — CLI formal OpenSpec
+- 🤖 `.agents/` — Agentes especializados (backend, frontend, producto)
+- ⭐ `scripts/install-skills.sh` — 20 Agent Skills TIER 1
+- 📋 `proyectos/_template/CONTRATO.md` — Template contrato
+- 🏗️ `CLAUDE.md` — Configuración para Claude Code
 
 ---
 
