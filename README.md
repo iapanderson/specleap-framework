@@ -349,35 +349,73 @@ adoptar
 
 ---
 
-## 🛠️ CLI openspec (Opcional)
+## 🤔 Dos Formas de Trabajar: Conversacional vs CLI Formal
 
-Para workflows formales con propuestas de cambio:
+SpecLeap ofrece **dos workflows** que conviven perfectamente según tus necesidades:
 
-```bash
-# Inicializar proyecto
-openspec init
+### 🗣️ **Modo Conversacional** (Recomendado para empezar)
 
-# Proponer cambio
-openspec new "añadir carrito de compras"
-→ Crea propuesta en openspec/proposals/
-→ Compara con CONTRATO
-→ Genera diff
+**Usa comandos en chat** con tu asistente IA (Claude, Copilot, etc.):
 
-# Revisar propuestas
-openspec list
-openspec show 001-carrito-compras
+```
+# Ver todos los comandos disponibles
+ayuda
 
-# Aprobar/Rechazar
-openspec approve 001-carrito-compras
-openspec reject 001-carrito-compras --reason "fuera de alcance"
-
-# Verificar implementación
-openspec verify 001-carrito-compras
-→ Compara código vs propuesta
-→ Valida que cumple spec
+# Comandos principales
+refinar "Como usuario quiero login"
+planificar
+implementar
+documentar
 ```
 
-**Detalle completo:** Ver [docs/CLI-OPENSPEC.md](docs/CLI-OPENSPEC.md)
+**Cuándo usarlo:**
+- ✅ Equipos pequeños (1-3 devs) o desarrollo individual
+- ✅ Prefieres chat natural vs terminal
+- ✅ Desarrollo ágil y rápido
+- ✅ Proyectos personales o startups
+
+---
+
+### ⚙️ **Modo CLI Formal** (OpenSpec)
+
+**Usa comandos de terminal** para workflow estructurado:
+
+```bash
+# Ver todos los comandos CLI
+openspec --help
+
+# Workflow completo con propuestas formales
+openspec new CHANGE-001 "Añadir autenticación JWT"
+openspec ff CHANGE-001        # Fast-forward: genera propuesta completa
+openspec apply CHANGE-001     # Implementa
+openspec verify CHANGE-001    # Verifica tests + specs
+openspec code-review CHANGE-001  # Review con CodeRabbit
+openspec archive CHANGE-001   # Archiva completado
+```
+
+**Cuándo usarlo:**
+- ✅ Equipos grandes (4+ devs) o distribuidos
+- ✅ Necesitas propuestas de cambio formales y trazables
+- ✅ Workflow enterprise con auditoría
+- ✅ Integración con CodeRabbit para code reviews
+
+---
+
+### 🔄 **¿Se Pueden Combinar?**
+
+**¡Sí!** Usa conversacional para el día a día y CLI para cambios grandes:
+
+```
+# Desarrollo normal (conversacional)
+implementar "fix bug en login"
+
+# Feature grande (CLI formal con trazabilidad)
+openspec new CHANGE-015 "Rediseño completo sistema de permisos"
+openspec ff CHANGE-015
+openspec apply CHANGE-015
+```
+
+**Detalle completo CLI:** Ver `openspec/README.md` y `openspec/cli/COMMAND_REFERENCE.md`
 
 ---
 

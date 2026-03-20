@@ -65,13 +65,14 @@ When the user says **"Hola"** (case-insensitive), execute `.commands/inicio.md`:
 | User writes | Read this file | Then execute |
 |-------------|----------------|--------------|
 | `/inicio` or `Hola` | `.commands/inicio.md` | Start workflow |
-| `refinar` | `.commandsrefinar.md` | Refine user story |
-| `planificar` | `.commandsplanificar.md` | Generate backlog |
-| `crear-tickets` | `.commandscrear-tickets.md` | Alias of `planificar` |
-| `implementar` | `.commandsimplementar.md` | Execute implementation |
-| `explicar` | `.commandsexplicar.md` | Explain concept |
-| `documentar` | `.commandsdocumentar.md` | Update docs |
-| `adoptar` | `.commandsadoptar.md` | Adopt legacy project |
+| `ayuda`, `help`, `comandos` | `.commands/ayuda.md` | List ALL available commands |
+| `refinar` | `.commands/refinar.md` | Refine user story |
+| `planificar` | `.commands/planificar.md` | Generate backlog |
+| `crear-tickets` | `.commands/crear-tickets.md` | Alias of `planificar` |
+| `implementar` | `.commands/implementar.md` | Execute implementation |
+| `explicar` | `.commands/explicar.md` | Explain concept |
+| `documentar` | `.commands/documentar.md` | Update docs |
+| `adoptar` | `.commands/adoptar.md` | Adopt legacy project |
 
 **Rules:**
 - If user writes `/comando` alone → read `.commands/comando.md` immediately
