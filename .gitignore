@@ -36,3 +36,9 @@ tmp/
 
 # Ko-fi assets
 kofi-images/
+
+# npm publish (internal only)
+.npmignore
+NPM_PUBLISH.md
+*.tgz
+test-install.sh
