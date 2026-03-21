@@ -562,7 +562,6 @@ Merge (solo si las 3 capas pasan)
 SpecLeap es **100% gratuito y open-source**. Si te resulta útil, puedes apoyar su desarrollo:
 
 [![Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20SpecLeap-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/specleap)
-[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support%20SpecLeap-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/specleap)
 
 Las donaciones nos ayudan a:
 - ✅ Mantener el framework actualizado
