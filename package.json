@@ -1,38 +1,60 @@
 {
-  "name": "specleap",
-  "version": "1.0.0",
-  "description": "> **Forja tu arquitectura de software con IA — De especificación a código funcionando.**",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "name": "specleap-framework",
+  "version": "2.0.0",
+  "description": "Spec-Driven Development Framework — Transform VSCode, Cursor, JetBrains into spec-first development machines",
+  "keywords": [
+    "spec-driven-development",
+    "sdd",
+    "framework",
+    "ai",
+    "claude",
+    "cursor",
+    "vscode",
+    "contract",
+    "agent-skills",
+    "asana",
+    "coderabbit",
+    "laravel",
+    "react"
+  ],
+  "homepage": "https://specleap.com",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iapanderson/specleap-framework.git"
+    "url": "https://github.com/iapanderson/specleap-framework.git"
   },
-  "keywords": [
-    "spec",
-    "architecture",
-    "ai",
-    "sdd",
-    "contract-driven"
-  ],
-  "author": "SpecLeap Contributors",
-  "license": "MIT",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/iapanderson/specleap-framework/issues"
   },
-  "homepage": "https://specleap.com",
-  "dependencies": {
-    "asana": "^3.1.9",
-    "bcryptjs": "^3.0.3",
-    "puppeteer": "^24.40.0"
+  "license": "MIT",
+  "author": {
+    "name": "SpecLeap Community",
+    "url": "https://specleap.com"
   },
-  "devDependencies": {
-    "@types/bcryptjs": "^2.4.6"
+  "bin": {
+    "specleap": "./setup.sh"
+  },
+  "scripts": {
+    "postinstall": "bash setup.sh",
+    "setup": "bash setup.sh",
+    "skills": "bash scripts/install-skills.sh",
+    "generate": "bash scripts/generate-contrato.sh"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    ".agents/**",
+    ".commands/**",
+    "proyectos/_template/**",
+    "rules/**",
+    "scripts/**",
+    "setup.sh",
+    "install.sh",
+    "README.md",
+    "SETUP.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }

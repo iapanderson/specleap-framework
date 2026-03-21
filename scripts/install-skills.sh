@@ -1,99 +1,130 @@
 #!/bin/bash
-
-# SpecLeap — Instalación de Agent Skills desde GitHub
-# Las skills se clonan y copian a ~/.skills/ para uso en VSCode/Claude Code
+# SpecLeap — Instalador de Agent Skills TIER 1
+# Versión 2.0 — Robusto y con progreso visual
 
 set -e
 
-# Colores
-RED='\033[0;31m'
 GREEN='\033[0;32m'
+RED='\033[0;31m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
-echo -e "${BLUE}"
-echo "╔════════════════════════════════════════════╗"
-echo "║    SpecLeap — Agent Skills Installer      ║"
-echo "╔════════════════════════════════════════════╗"
-echo -e "${NC}"
+echo -e "${BLUE}━━━ Installing Agent Skills TIER 1 ━━━${NC}"
 echo ""
 
-# Directorio de destino
-SKILLS_DIR="${HOME}/.skills"
-
-echo -e "${BLUE}📁 Directorio de skills: ${SKILLS_DIR}${NC}"
-echo ""
-
-# Crear directorio si no existe
-mkdir -p "${SKILLS_DIR}"
-
-# Función para clonar e instalar una skill desde GitHub
-install_skill() {
-    local repo=$1
-    local skill_name=$2
-    local skill_path=$3
+# Lista de skills (repo:path:name)
+SKILLS=(
+    # Consistencia (3) - obra/superpowers
+    "obra/superpowers:skills/verification-before-completion:verification-before-completion"
+    "obra/superpowers:skills/systematic-debugging:systematic-debugging"
+    "obra/superpowers:skills/requesting-code-review:requesting-code-review"
     
-    echo -ne "  📦 ${skill_name}... "
+    # Backend (7) - jeffallan/claude-skills
+    "jeffallan/claude-skills:skills/laravel-specialist:laravel-specialist"
+    "jeffallan/claude-skills:skills/api-designer:api-designer"
+    "jeffallan/claude-skills:skills/database-optimizer:database-optimizer"
+    "jeffallan/claude-skills:skills/code-reviewer:code-reviewer"
+    "jeffallan/claude-skills:skills/debugging-wizard:debugging-wizard"
+    "jeffallan/claude-skills:skills/python-pro:python-pro"
+    "jeffallan/claude-skills:skills/react-expert:react-expert"
     
-    # Clonar repo temporal
-    TMP_DIR=$(mktemp -d)
+    # Diseño (4) - anthropics/skills
+    "anthropics/skills:skills/frontend-design:frontend-design"
+    "anthropics/skills:skills/skill-creator:skill-creator"
+    "anthropics/skills:skills/canvas-design:canvas-design"
+    "anthropics/skills:skills/algorithmic-art:algorithmic-art"
     
-    if git clone "https://github.com/${repo}.git" "${TMP_DIR}" &>/dev/null; then
-        # Copiar la skill específica
-        if [ -f "${TMP_DIR}/${skill_path}/SKILL.md" ]; then
-            cp -r "${TMP_DIR}/${skill_path}" "${SKILLS_DIR}/${skill_name}"
-            echo -e "${GREEN}✅${NC}"
-            rm -rf "${TMP_DIR}"
-            return 0
-        else
-            echo -e "${RED}❌ (SKILL.md no encontrado)${NC}"
-            rm -rf "${TMP_DIR}"
-            return 1
-        fi
-    else
-        echo -e "${RED}❌ (repo no accesible)${NC}"
-        rm -rf "${TMP_DIR}"
-        return 1
-    fi
+    # DevOps (3) - jeffallan/claude-skills
+    "jeffallan/claude-skills:skills/devops-engineer:devops-engineer"
+    "jeffallan/claude-skills:skills/cloud-architect:cloud-architect"
+    "jeffallan/claude-skills:skills/architecture-designer:architecture-designer"
+    
+    # Testing (2) - obra/superpowers
+    "obra/superpowers:skills/test-driven-development:test-driven-development"
+    "obra/superpowers:skills/receiving-code-review:receiving-code-review"
+    
+    # Frontend (1) - jeffallan/claude-skills
+    "jeffallan/claude-skills:skills/typescript-pro:typescript-pro"
+)
+
+TOTAL=${#SKILLS[@]}
+INSTALLED=0
+FAILED=0
+SKIPPED=0
+
+SKILLS_DIR="$HOME/.skills"
+TMP_DIR="/tmp/specleap-skills-$$"
+
+mkdir -p "$SKILLS_DIR"
+mkdir -p "$TMP_DIR"
+
+# Función para limpiar temporal
+cleanup() {
+    rm -rf "$TMP_DIR"
 }
+trap cleanup EXIT
 
-# Lista de skills a instalar
-# Format: "repo" "skill-name" "path-in-repo"
+echo -e "Installing to: ${GREEN}$SKILLS_DIR${NC}"
+echo ""
 
-echo -e "${BLUE}🔐 Seguridad (5 skills)${NC}"
-# Nota: La mayoría de estas no existen como repos públicos
-# Omitiendo por ahora
-
-echo -e "${BLUE}🔄 Consistencia & Calidad (3 skills)${NC}"
-install_skill "obra/superpowers" "verification-before-completion" "verification-before-completion"
-install_skill "obra/superpowers" "systematic-debugging" "systematic-debugging"
-# code-review-excellence - investigar repo
-
-echo -e "${BLUE}🎨 Diseño & Frontend (6 skills)${NC}"
-# web-design-guidelines - investigar repo
-# ui-ux-pro-max - investigar repo
-# tailwind-design-system - investigar repo
-# shadcn-ui - investigar repo
-# responsive-design - investigar repo
-# accessibility-compliance - investigar repo
-
-echo -e "${BLUE}🛠️ Backend & Development (6 skills)${NC}"
-# laravel - investigar repo
-# react-best-practices - investigar repo
-# test-driven-development - investigar repo
-# api-design-principles - investigar repo
-# postgresql-best-practices - investigar repo
-# error-handling-patterns - investigar repo
+for i in "${!SKILLS[@]}"; do
+    IFS=':' read -r repo path name <<< "${SKILLS[$i]}"
+    num=$((i + 1))
+    
+    printf "  [%2d/%2d] %-40s " "$num" "$TOTAL" "$name"
+    
+    # Skip si ya existe
+    if [ -d "$SKILLS_DIR/$name" ]; then
+        echo -e "${YELLOW}SKIP${NC} (already installed)"
+        ((SKIPPED++))
+        continue
+    fi
+    
+    # Clonar repo si no existe
+    repo_dir="$TMP_DIR/$(echo $repo | tr '/' '_')"
+    if [ ! -d "$repo_dir" ]; then
+        if ! git clone -q "https://github.com/$repo.git" "$repo_dir" 2>/dev/null; then
+            echo -e "${RED}FAIL${NC} (repo not accessible)"
+            ((FAILED++))
+            continue
+        fi
+    fi
+    
+    # Verificar SKILL.md
+    if [ ! -f "$repo_dir/$path/SKILL.md" ]; then
+        echo -e "${RED}FAIL${NC} (SKILL.md not found)"
+        ((FAILED++))
+        continue
+    fi
+    
+    # Copiar skill
+    cp -r "$repo_dir/$path" "$SKILLS_DIR/$name"
+    echo -e "${GREEN}OK${NC}"
+    ((INSTALLED++))
+done
 
 echo ""
-echo -e "${GREEN}✅ Instalación completada${NC}"
+echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
-echo -e "${BLUE}📋 Skills instaladas en: ${SKILLS_DIR}${NC}"
+echo -e "${GREEN}✅ Installed:${NC} $INSTALLED"
+if [ $SKIPPED -gt 0 ]; then
+    echo -e "${YELLOW}⚠️  Skipped:${NC} $SKIPPED (already existed)"
+fi
+if [ $FAILED -gt 0 ]; then
+    echo -e "${RED}❌ Failed:${NC} $FAILED"
+fi
 echo ""
-echo "Las skills estarán disponibles en:"
-echo "  - VSCode (con extensión Claude)"
-echo "  - Claude Code"
-echo "  - Cursor"
-echo "  - Cualquier editor compatible con Agent Skills"
-echo ""
+
+if [ $INSTALLED -eq 0 ] && [ $SKIPPED -eq $TOTAL ]; then
+    echo -e "${GREEN}All skills already installed!${NC}"
+    exit 0
+fi
+
+if [ $FAILED -gt 0 ]; then
+    echo -e "${YELLOW}Warning: Some skills failed to install${NC}"
+    echo "This may affect code quality. Check network connection and try again."
+    exit 1
+fi
+
+echo -e "${GREEN}Agent Skills installation complete!${NC}"

@@ -38,58 +38,50 @@ SpecLeap transforma cualquier IDE con asistente de IA en una máquina de desarro
 
 ## 🚀 Instalación
 
-### Paso 1: Clonar el Repositorio
+### Opción 1: Instalación desde npm (Recomendado)
+
+```bash
+npx specleap-framework@latest
+```
+
+**Instalador interactivo que pide todos los tokens:**
+- ✅ GitHub token (control versiones + CodeRabbit)
+- ✅ Asana token + workspace (backlog automático)
+- ✅ Instala 20 Agent Skills automáticamente
+- ✅ Configura CodeRabbit (.coderabbit.yaml)
+- ✅ Crea estructura completa
+- ⏱️ **Tiempo total: 10-15 minutos**
+
+### Opción 2: Clonar desde GitHub
 
 ```bash
 git clone https://github.com/iapanderson/specleap-framework.git
-cd specleap/
-chmod +x install.sh
-./install.sh
+cd specleap-framework/
+bash setup.sh
 ```
 
-El instalador te permitirá seleccionar tu idioma preferido (Español o English).
+**Mismo instalador interactivo. La diferencia es solo el método de descarga.**
 
-**¿Qué hace el instalador?**
-- ✅ Selección de idioma (ES/EN)
-- ✅ Crea archivo de configuración `.specleap/config.json`
-- ✅ Genera archivo `.env` con variables de entorno
-- ✅ Hace ejecutables todos los scripts
-- ✅ Configura traducciones automáticas
+---
 
-### Paso 2: Configurar GitHub + Asana (Necesario para Workflow Profesional)
+## 📋 Tokens Necesarios (se piden durante instalación)
 
-**¿Por qué GitHub + Asana?**
+### GitHub Token (Obligatorio)
 
-SpecLeap está diseñado para **desarrollo profesional spec-first**. Para que funcione correctamente necesitas:
+**Cómo obtener los tokens:**
 
-✅ **GitHub** (OBLIGATORIO):
-- Almacena CONTRATO.md versionado
-- Source of truth del proyecto
-- Historial de cambios y decisiones
-- Colaboración en equipo
+1. **GitHub Token:**
+   - Ve a https://github.com/settings/tokens
+   - "Generate new token (classic)"
+   - Scopes: `repo`, `workflow`
 
-✅ **Asana** (OBLIGATORIO para workflow completo):
-- Genera backlog automático desde CONTRATO.md
-- Trackea progreso de implementación
-- Organiza épicas y tareas
-- Integración con comandos SpecLeap
+2. **Asana Token:**
+   - Ve a https://app.asana.com/0/my-apps
+   - "Create new token"
+   - Nombre: "SpecLeap Integration"
+   - Copia el token (empieza con `0/`)
 
-**Instalación:**
-
-```bash
-bash scripts/setup-mcp.sh
-```
-
-El script instalará automáticamente:
-- ✅ **Cliente Asana** — Para integración con Asana API
-- ✅ **20 Skills TIER 1** — Seguridad, diseño, backend, frontend
-- ✅ **Context7 MCP** (opcional) — Docs actualizadas de librerías
-
-**Tiempo:** ~5 minutos total
-
-**⚠️ Sin GitHub/Asana:** SpecLeap funciona parcialmente (solo generación de CONTRATO local), pero pierdes el workflow profesional completo.
-
-**Detalle completo:** Ver [SETUP.md](SETUP.md)
+**El instalador te pedirá estos tokens y configurará todo automáticamente.**
 
 ---
 
