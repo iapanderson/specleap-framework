@@ -422,12 +422,11 @@ openspec apply CHANGE-015
 
 **SpecLeap es agnóstico al IDE.** Funciona con **cualquier editor que tenga asistente de IA**:
 
-- ✅ **VSCode** — Con GitHub Copilot, Claude Code, Cursor extension
+- ✅ **VSCode** — Con GitHub Copilot, Claude Code, Continue extension
 - ✅ **Cursor** — IDE nativo con Claude integrado
 - ✅ **JetBrains** (IntelliJ, PhpStorm, WebStorm) — Con AI Assistant
 - ✅ **Vim/Neovim** — Con plugins de IA (copilot.vim, etc.)
 - ✅ **Zed** — Editor moderno con IA integrada
-- ✅ **Continue.dev** — Compatible con múltiples IDEs
 - ✅ **Cualquier IDE con asistente IA** — Si tu editor tiene IA, SpecLeap funciona
 
 **Cómo funciona:**

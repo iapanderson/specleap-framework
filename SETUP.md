@@ -296,7 +296,7 @@ export PATH="$PATH:$(pwd)/openspec/cli"
 ls -la ~/.skills/
 ```
 
-2. Reinicia tu IDE (Cursor/Continue/VSCode)
+2. Reinicia tu IDE (VSCode/Cursor/JetBrains)
 
 3. Verifica config MCP:
 ```bash
