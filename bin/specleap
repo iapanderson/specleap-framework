@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+const { spawn } = require('child_process');
+const path = require('path');
+
+// Ejecutar setup.sh desde el directorio del paquete
+const setupPath = path.join(__dirname, '..', 'setup.sh');
+
+const setup = spawn('bash', [setupPath], {
+  stdio: 'inherit',
+  cwd: process.cwd()
+});
+
+setup.on('close', (code) => {
+  process.exit(code);
+});
