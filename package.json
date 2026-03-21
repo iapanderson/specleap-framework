@@ -1,6 +1,6 @@
 {
   "name": "specleap-framework",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Spec-Driven Development Framework — Transform VSCode, Cursor, JetBrains into spec-first development machines",
   "keywords": [
     "spec-driven-development",
