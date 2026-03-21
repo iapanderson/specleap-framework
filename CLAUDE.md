@@ -85,8 +85,8 @@ When the user says **"Hola"** (case-insensitive), execute `.commands/inicio.md`:
 
 | Command | Description | Agente |
 |---------|-------------|--------|
-| `refinar SCRUM-XX` | Refine Jira user story | producto.md |
-| `planificar SCRUM-XX` | Generate implementation plan | backend.md / frontend.md |
+| `refinar PROJ-XXX` | Refine Asana user story | producto.md |
+| `planificar PROJ-XXX` | Generate implementation plan | backend.md / frontend.md |
 | `implementar @plan.md` | Execute plan: branch + code + tests + PR | backend.md / frontend.md |
 | `explicar [concepto]` | Explain code/architecture/decisions | neutral |
 | `documentar` | Update technical documentation | neutral |
@@ -259,16 +259,16 @@ User: "app-tienda y desarrollo"
 AI: [Load proyectos/app-tienda/CONTRATO.md + context/]
     "✅ Proyecto app-tienda cargado. ¿Qué ticket trabajarás?"
 
-User: "SCRUM-23"
+User: "PROJ-123"
 AI: "¿Refinar o planificar directamente?"
 
-User: "planificar SCRUM-23"
+User: "planificar PROJ-123"
 AI: [Adopt .agents/backend.md]
     [Read CONTRATO + context + ticket]
-    [Generate plan in specs/SCRUM-23_backend.md]
+    [Generate plan in specs/PROJ-123_backend.md]
     "📋 Plan creado. Revisar antes de implementar."
 
-User: "implementar @SCRUM-23_backend.md"
+User: "implementar @PROJ-123_backend.md"
 AI: [Adopt .agents/backend.md]
     [Execute plan step by step]
     [Tests, commit, push, PR]
@@ -294,18 +294,18 @@ See: `openspec/cli/README.md`
 
 ## MCP Integrations
 
-### ⚠️ Jira MCP (MANDATORY)
+### ⚠️ Asana MCP (MANDATORY)
 
-**Jira is MANDATORY for SpecLeap workflow.**
+**Asana is MANDATORY for SpecLeap workflow.**
 
 MUST use for:
 - `crear-tickets` — Generate all tickets from CONTRATO.md
-- `refinar SCRUM-XX` — Read and enrich ticket
-- `planificar SCRUM-XX` — Read ticket for plan generation
+- `refinar PROJ-XXX` — Read and enrich ticket
+- `planificar PROJ-XXX` — Read ticket for plan generation
 - `implementar` — Update ticket status during implementation
 - Automatic updates: "To Do" → "In Progress" → "In Review" → "Done"
 
-**Without Jira MCP, the workflow DOES NOT WORK.**
+**Without Asana MCP, the workflow DOES NOT WORK.**
 
 ### CodeRabbit (Recommended)
 
