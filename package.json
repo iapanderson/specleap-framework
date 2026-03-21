@@ -51,7 +51,6 @@
     ".github/**",
     ".vscode/**",
     "bin/**",
-    "proyectos/_template/**",
     "rules/**",
     "scripts/**",
     "setup.sh",

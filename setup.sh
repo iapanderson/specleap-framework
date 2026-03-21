@@ -357,12 +357,8 @@ else
     echo ""
 fi
 
-if [ -f "proyectos/_template/.coderabbit.yaml" ]; then
-    cp proyectos/_template/.coderabbit.yaml .coderabbit.yaml
-    echo -e "${GREEN}✅ .coderabbit.yaml copiado${NC}"
-else
-    echo -e "${YELLOW}⚠️  Template no encontrado, se omite${NC}"
-fi
+# .coderabbit.yaml ya está en la raíz del proyecto
+echo -e "${GREEN}✅ .coderabbit.yaml listo${NC}"
 
 echo ""
 sleep 1
