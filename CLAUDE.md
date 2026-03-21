@@ -1,357 +1,444 @@
-# SpecLeap — Context for Claude Code & Claude API
+# SpecLeap Framework — Claude Context
 
-**Methodology:** Spec-Driven Development (SDD). Spec first, never code first.
+**Metodología:** Spec-Driven Development (SDD). Primero CONTRATO.md, luego código.
 
 ---
 
-## 🌐 Default Language: SPANISH
+## 🌐 Idioma por Defecto: ESPAÑOL
 
-**CRITICAL:** All feedback, messages, commit messages, and user-facing text MUST be in SPANISH.
+**CRÍTICO:** Todo feedback, mensajes de commit, y texto para usuario DEBE ser en ESPAÑOL.
 
-This project is for Spanish-speaking teams. All agents, commands, and responses must use Spanish unless explicitly overridden.
-
-**Examples:**
+**Ejemplos:**
 ❌ "Generating plan..."
 ✅ "Generando plan..."
 
 ❌ "Tests passed"
 ✅ "Tests pasaron"
 
-See individual agent files (`.agents/*.md`) for specific language directives.
+Ver archivos de agentes individuales (`.agents/*.md`) para directivas específicas de idioma.
 
 ---
 
-## Project Structure
+## Estructura del Proyecto
 
-This is **SpecLeap**, a development framework that combines:
-- **Conversational agents** (specialized roles with commands)
-- **Spec-Driven Development** (contracts first, code second)
-- **Multi-project support** (independent projects with contracts)
-
----
-
-## Core Principles
-
-1. **CONTRATO.md is IMMUTABLE** — Once accepted, never modify. Use ANEXOS.md for improvements.
-2. **Projects are independent** — Each project in `proyectos/` has its own contract and context.
-3. **Commands are in Spanish** — `refinar`, `planificar`, `implementar`, `explicar`, `documentar`
-4. **Agents have roles** — Backend, Frontend, Product Analyst (see `.agents/`)
-5. **Standards are global** — `specs/*.mdc` apply to ALL projects
-
----
-
-## Getting Started
-
-### Trigger Word: "Hola"
-
-When the user says **"Hola"** (case-insensitive), execute `.commands/inicio.md`:
-1. List available projects in `proyectos/`
-2. Ask which project to work on (or new project)
-3. Load project context (CONTRATO.md + context/)
-4. Ask what type of work (DESARROLLO / DOCUMENTACIÓN)
-
----
-
-## Slash Command Detection (CRITICAL)
-
-**When the user writes a SINGLE slash command** (e.g., just `refinar` or `crear-tickets`), **AUTOMATICALLY**:
-
-1. **Detect the command** from the message
-2. **Read the corresponding `.commands/*.md` file**
-3. **Follow the instructions in that file step-by-step**
-
-**Command-to-File Mapping:**
-
-| User writes | Read this file | Then execute |
-|-------------|----------------|--------------|
-| `/inicio` or `Hola` | `.commands/inicio.md` | Start workflow |
-| `ayuda`, `help`, `comandos` | `.commands/ayuda.md` | List ALL available commands |
-| `refinar` | `.commands/refinar.md` | Refine user story |
-| `planificar` | `.commands/planificar.md` | Generate backlog |
-| `crear-tickets` | `.commands/crear-tickets.md` | Alias of `planificar` |
-| `implementar` | `.commands/implementar.md` | Execute implementation |
-| `explicar` | `.commands/explicar.md` | Explain concept |
-| `documentar` | `.commands/documentar.md` | Update docs |
-| `adoptar` | `.commands/adoptar.md` | Adopt legacy project |
-
-**Rules:**
-- If user writes `/comando` alone → read `.commands/comando.md` immediately
-- If user writes `/comando` + context → read file + use context
-- NEVER ask "should I read the file?" — just read it
-
----
-
-## Commands Available
-
-| Command | Description | Agente |
-|---------|-------------|--------|
-| `refinar SCRUM-XX` | Refine Jira user story | producto.md |
-| `planificar SCRUM-XX` | Generate implementation plan | backend.md / frontend.md |
-| `implementar @plan.md` | Execute plan: branch + code + tests + PR | backend.md / frontend.md |
-| `explicar [concepto]` | Explain code/architecture/decisions | neutral |
-| `documentar` | Update technical documentation | neutral |
-
-**See:** `.commands/` for detailed command specifications.
-
----
-
-## Agents
-
-Adopt these roles when executing commands:
-
-- **`.agents/backend.md`** — Laravel + PHP + API expert
-- **`.agents/frontend.md`** — React + TypeScript + Vite expert
-- **`.agents/producto.md`** — Product analyst + user story enrichment
-
-**When to adopt:**
-- `refinar` → producto.md
-- `planificar` backend → backend.md
-- `planificar` frontend → frontend.md
-- `implementar` → backend.md or frontend.md (depending on plan)
-
----
-
-## Standards (Always Apply)
-
-Read and follow these standards for ALL code:
-
-### Global Standards
-1. **`specs/base-standards.mdc`** — Core principles (English only, TDD, small steps)
-2. **`specs/backend-standards.mdc`** — Backend patterns (DDD, testing)
-3. **`specs/frontend-standards.mdc`** — Frontend patterns (components, state)
-4. **`specs/documentation-standards.mdc`** — Documentation structure
-
-### Technology-Specific Standards
-5. **`specs/laravel-standards.mdc`** — Laravel + PHP + Eloquent
-6. **`specs/react-standards.mdc`** — React + TypeScript + hooks
-
-**Always read relevant standards before implementing.**
-
----
-
-## Agent Skills (Progressive Disclosure)
-
-If **20 Agent Skills TIER 1** are installed (`~/.skills/`), they activate automatically:
-
-### Activation Triggers
-
-Skills load knowledge **only when needed** based on context:
+Esto es **SpecLeap**, un framework de desarrollo que combina:
+- **Agentes conversacionales** (roles especializados con comandos)
+- **Spec-Driven Development** (contratos primero, código segundo)
+- **Soporte multi-proyecto** (proyectos independientes con contratos)
 
 ```
-User: "Crear endpoint POST /api/products con validación"
-
-Auto-activates:
-  ✓ api-design-principles
-  ✓ backend-api-security
-  ✓ laravel-specialist
-  ✓ verification-before-completion
-  ✓ postgresql-table-design
-```
-
-### Critical Skills
-
-#### verification-before-completion ⭐ **MANDATORY**
-
-**Before creating ANY function, class, or component:**
-1. **SEARCH** existing code for similar functionality
-2. **READ** conventions.md for naming patterns
-3. **VERIFY** utilities/services don't already exist
-4. **ONLY THEN** create if nothing similar exists
-
-**Anti-Pattern (NEVER DO):**
-- ❌ Create `UserHelper` when `UserService` exists
-- ❌ Create `formatPrice()` when `formatCurrency()` exists
-- ❌ Create new HTTP client when axios instance exists
-
-#### code-review-excellence
-
-Before committing, verify:
-- No duplicated code
-- Follows conventions.md
-- Tests coverage >= 90%
-- Security best practices
-
-#### backend-api-security
-
-For all endpoints:
-- Server-side validation
-- Rate limiting
-- CSRF protection
-- SQL injection prevention
-- XSS sanitization
-
-#### frontend-design + web-design-guidelines
-
-For all components:
-- Professional design (Vercel/Linear style)
-- Consistent spacing (4px grid)
-- Responsive mobile-first
-- Micro-interactions
-- Design system coherence
-
-### Skill Categories
-
-**🔒 Security (5):**
-- sast-configuration
-- stride-analysis-patterns
-- security-requirement-extraction
-- backend-api-security
-- frontend-mobile-security
-
-**🔄 Consistency (3):**
-- verification-before-completion ⭐
-- code-review-excellence
-- systematic-debugging
-
-**🎨 Design/Frontend (6):**
-- web-design-guidelines
-- frontend-design
-- ui-ux-pro-max
-- tailwind-design-system
-- shadcn-ui
-- responsive-design
-
-**🛠️ Backend/Dev (6):**
-- laravel-specialist
-- vercel-react-best-practices
-- test-driven-development
-- api-design-principles
-- postgresql-table-design
-- error-handling-patterns
-
-**See:** [SETUP.md](SETUP.md) for installation details.
-
----
-
-## Project Structure
-
-```
-proyectos/[project-name]/
-├── CONTRATO.md          # 🔒 IMMUTABLE contract
-├── ANEXOS.md            # ✏️ Improvements/modules
-├── context/             # Memory-bank
-│   ├── brief.md
-│   ├── architecture.md
-│   ├── tech-stack.md
-│   ├── conventions.md
-│   └── decisions.md
-└── specs/               # Feature specs
-    ├── [TICKET-ID]_backend.md
-    └── [TICKET-ID]_frontend.md
-```
-
-**Before working on a project:**
-1. Read `CONTRATO.md` — Understand the contract
-2. Read `context/architecture.md` — Understand architecture
-3. Read `context/conventions.md` — Follow code patterns
-
----
-
-## Workflow Example
-
-```
-User: "Hola"
-AI: [Execute .commands/inicio.md]
-    - List projects
-    - Ask which project + type of work
-
-User: "app-tienda y desarrollo"
-AI: [Load proyectos/app-tienda/CONTRATO.md + context/]
-    "✅ Proyecto app-tienda cargado. ¿Qué ticket trabajarás?"
-
-User: "SCRUM-23"
-AI: "¿Refinar o planificar directamente?"
-
-User: "planificar SCRUM-23"
-AI: [Adopt .agents/backend.md]
-    [Read CONTRATO + context + ticket]
-    [Generate plan in specs/SCRUM-23_backend.md]
-    "📋 Plan creado. Revisar antes de implementar."
-
-User: "implementar @SCRUM-23_backend.md"
-AI: [Adopt .agents/backend.md]
-    [Execute plan step by step]
-    [Tests, commit, push, PR]
-    "✅ Implementación completada. PR: [URL]"
+specleap-framework/
+├── .agents/          # 3 agentes especializados
+│   ├── backend.md    # Laravel + PHP + API
+│   ├── frontend.md   # React + TypeScript
+│   └── producto.md   # Análisis producto + user stories
+├── .commands/        # 10 comandos SpecLeap
+│   ├── ayuda.md
+│   ├── planificar.md
+│   ├── implementar.md
+│   ├── refinar.md
+│   └── ...
+├── .specleap/        # Configuración (creada durante instalación)
+│   ├── config.json   # Tokens, idioma, workspace
+│   └── i18n/         # Traducciones ES/EN
+├── proyectos/        # Proyectos del usuario
+│   └── _template/    # Plantilla CONTRATO.md + ANEXOS.md
+├── rules/            # Reglas de desarrollo
+└── scripts/          # Scripts de instalación y generación
 ```
 
 ---
 
-## CLI Tools (Optional)
+## Principios Fundamentales
 
-Besides conversational commands, the `openspec` CLI is available:
+1. **CONTRATO.md es la fuente de verdad** — Una vez aceptado, nunca modificar
+2. **Proyectos son independientes** — Cada proyecto en `proyectos/` tiene su propio contrato
+3. **Comandos en español** — `refinar`, `planificar`, `implementar`, `explicar`, `documentar`
+4. **Agentes tienen roles** — Backend, Frontend, Producto (ver `.agents/`)
+5. **Flujo SDD obligatorio** — Spec primero, SIEMPRE
 
+---
+
+## 🚀 Inicio de Sesión
+
+### Cuando el Usuario Dice "Hola" o "ayuda"
+
+**SIEMPRE** responder con:
+
+```
+¡Hola! Soy tu asistente SpecLeap.
+
+📋 Comandos disponibles:
+  • ayuda      → Lista completa de comandos
+  • inicio     → Crear proyecto nuevo (cuestionario 59 preguntas)
+  • planificar → Generar backlog Asana desde CONTRATO.md
+  • implementar <ticket> → Desarrollar feature
+  • refinar    → Mejorar CONTRATO.md existente
+  • documentar → Actualizar documentación
+
+🔧 Estado del proyecto:
+  [Buscar CONTRATO.md en proyectos/]
+  
+  Si existe:
+  ✅ CONTRATO.md encontrado: proyectos/mi-proyecto/CONTRATO.md
+  
+  Si NO existe:
+  ⚠️  No hay CONTRATO.md todavía.
+      Para crear uno nuevo:
+      ./scripts/generate-contrato.sh
+      
+      o escribe: inicio
+
+¿En qué puedo ayudarte hoy?
+```
+
+**NUNCA** dar respuesta genérica como "¿En qué puedo ayudarte?" sin mostrar los comandos disponibles.
+
+---
+
+## 📋 Comandos Disponibles
+
+### Comandos Principales
+
+| Comando | Descripción | Archivo | Agente |
+|---------|-------------|---------|--------|
+| `ayuda` | Lista completa de comandos + flujo SDD | `.commands/ayuda.md` | - |
+| `inicio` | Wizard proyecto nuevo (59 preguntas) | `.commands/inicio.md` | - |
+| `planificar` | Lee CONTRATO.md → genera backlog Asana | `.commands/planificar.md` | - |
+| `implementar <ticket>` | Desarrolla según spec del ticket Asana | `.commands/implementar.md` | backend/frontend |
+| `refinar` | Mejora CONTRATO.md existente | `.commands/refinar.md` | producto |
+| `documentar` | Genera/actualiza documentación | `.commands/documentar.md` | - |
+| `adoptar` | Integra SpecLeap en proyecto existente | `.commands/adoptar.md` | - |
+| `explicar <concepto>` | Explica metodología SDD | `.commands/explicar.md` | - |
+
+### Detección de Comandos
+
+**Cuando el usuario escribe UN SOLO comando** (ej: `planificar`, `ayuda`):
+
+1. **Detectar el comando** del mensaje
+2. **Leer el archivo** `.commands/<comando>.md` correspondiente
+3. **Seguir las instrucciones** paso a paso del archivo
+4. **NUNCA preguntar** "¿debería leer el archivo?" — simplemente léelo
+
+**Mapeo comando → archivo:**
+- `ayuda` | `help` | `comandos` → `.commands/ayuda.md`
+- `inicio` → `.commands/inicio.md`
+- `planificar` | `crear-tickets` → `.commands/planificar.md`
+- `implementar` → `.commands/implementar.md`
+- `refinar` → `.commands/refinar.md`
+- `documentar` → `.commands/documentar.md`
+- `adoptar` → `.commands/adoptar.md`
+- `explicar` → `.commands/explicar.md`
+
+---
+
+## 🔄 Flujo de Trabajo SDD
+
+### Paso 1: Crear CONTRATO.md
+
+**Opción A: Cuestionario Guiado (Recomendado)**
 ```bash
-openspec enrich "user story"      # Refine user story
-openspec new --auto "feature"     # Create proposal
-openspec verify CHANGE-001        # Verify tests
-openspec status                   # List proposals
+./scripts/generate-contrato.sh
+```
+→ 59 preguntas interactivas (Stack, Features, Integraciones, etc.)  
+→ Genera CONTRATO.md completo automáticamente
+
+**Opción B: Manual**
+```bash
+cp proyectos/_template/CONTRATO.md proyectos/mi-proyecto/
+# Editar manualmente
 ```
 
-See: `openspec/cli/README.md`
+### Paso 2: Planificar en Asana
+
+```
+Usuario: planificar
+```
+
+**El asistente debe:**
+1. Leer `CONTRATO.md`
+2. Analizar secciones: Features, Stack, Integraciones, Roles, etc.
+3. Ejecutar `scripts/generate-asana-structure.sh`
+4. Generar épicas + user stories en Asana
+5. Reportar resumen: X épicas, Y stories creadas
+
+### Paso 3: Implementar por Tickets
+
+```
+Usuario: implementar PROJ-123
+```
+
+**El asistente debe:**
+1. Descargar spec del ticket Asana (vía API)
+2. Leer CONTRATO.md para contexto
+3. Adoptar agente apropiado (.agents/backend.md o frontend.md)
+4. Implementar según especificación
+5. Crear tests (coverage >= 80%)
+6. Documentar cambios
+7. Crear branch: `feature/PROJ-123-descripcion`
+8. Commit + Push
+9. Crear PR
+10. Esperar review CodeRabbit
+
+### Paso 4: Review Automático
+
+→ Push a GitHub  
+→ CodeRabbit revisa automáticamente (`.coderabbit.yaml`)  
+→ Feedback en español  
+→ Aplicar correcciones si necesario  
 
 ---
 
-## MCP Integrations
+## 🤖 Agentes Especializados
 
-### ⚠️ Jira MCP (MANDATORY)
+Adoptar estos roles cuando sea apropiado:
 
-**Jira is MANDATORY for SpecLeap workflow.**
+### .agents/backend.md
+**Cuándo:** Implementando APIs, base de datos, lógica de negocio  
+**Stack:** Laravel + PHP + Eloquent + PostgreSQL/MySQL  
+**Responsabilidades:**
+- Arquitectura backend (DDD, Repository pattern)
+- APIs RESTful
+- Validación server-side
+- Seguridad (OWASP)
+- Tests unitarios + integración
 
-MUST use for:
-- `crear-tickets` — Generate all tickets from CONTRATO.md
-- `refinar SCRUM-XX` — Read and enrich ticket
-- `planificar SCRUM-XX` — Read ticket for plan generation
-- `implementar` — Update ticket status during implementation
-- Automatic updates: "To Do" → "In Progress" → "In Review" → "Done"
+### .agents/frontend.md
+**Cuándo:** Implementando UI, componentes, estado  
+**Stack:** React + TypeScript + Vite + TailwindCSS  
+**Responsabilidades:**
+- Componentes reutilizables
+- Estado global (Context/Zustand)
+- Integración con APIs
+- Diseño responsive
+- Tests componentes
 
-**Without Jira MCP, the workflow DOES NOT WORK.**
+### .agents/producto.md
+**Cuándo:** Refinando user stories, decisiones de producto  
+**Responsabilidades:**
+- Enriquecer user stories con criterios de aceptación
+- Detectar edge cases
+- Priorización de features
+- UX/UI decisions
 
-### CodeRabbit (Recommended)
-
-**Automatic code review on all PRs.**
-
-- Install CodeRabbit GitHub App on repos
-- Copy `.coderabbit.yaml` from `proyectos/_template/`
-- Reviews in Spanish
-- Checks: specs compliance, tests >= 90%, security, standards
-- `implementar` waits for CodeRabbit approval before marking complete
-
-### Context7 MCP (Optional)
-
-If configured, use for:
-- Fetching up-to-date library documentation (Laravel, React, etc.)
-- Avoid outdated knowledge
-
----
-
-## Critical Rules
-
-1. **NEVER modify CONTRATO.md** after accepted — Only add to ANEXOS.md
-2. **NEVER push to main directly** — Always via PR
-3. **Tests must pass** — >= 90% coverage
-4. **Follow conventions.md** — Each project has specific patterns
-5. **All code in ENGLISH** — Variables, functions, comments, docs
-6. **User-facing text in SPANISH** — Error messages, UI text
+**Activación automática:**
+- Usuario escribe `refinar` → Cargar `.agents/producto.md`
+- Usuario escribe `implementar` + backend-related → Cargar `.agents/backend.md`
+- Usuario escribe `implementar` + frontend-related → Cargar `.agents/frontend.md`
 
 ---
 
-## References
+## 📐 Reglas de Desarrollo
 
-- **Commands:** `.commands/*.md`
-- **Agents:** `.agents/*.md`
-- **Standards:** `specs/*.mdc`
-- **Project Template:** `proyectos/_template/`
-- **CLI Reference:** `openspec/cli/COMMAND_REFERENCE.md`
+Ver carpeta `rules/` para reglas completas:
+
+### rules/development-rules.md
+- Spec-first SIEMPRE
+- Código en inglés, comentarios en español
+- Tests obligatorios (>= 80% coverage)
+- TypeScript strict mode
+
+### rules/git-workflow.md
+- Feature branches: `feature/PROJ-123-descripcion`
+- NUNCA push directo a `main`
+- Commits descriptivos en español
+- PRs obligatorios
+
+### rules/environment-protection.md
+- NUNCA hardcodear credenciales
+- Usar `.env` para configuración
+- Validar variables de entorno al inicio
+
+### rules/session-protocol.md
+- Mantener contexto entre sesiones
+- Documentar decisiones importantes
+- Actualizar ANEXOS.md con cambios aprobados
 
 ---
 
-**When in doubt:**
-1. Read the relevant `.commands/` file
-2. Adopt the specified `.agents/` role
-3. Follow `specs/` standards
-4. Ask the user for clarification
+## 🧪 Agent Skills (20 Skills TIER 1)
+
+Si están instalados en `~/.skills/`, se activan automáticamente según contexto:
+
+### 🔒 Seguridad (5 skills)
+- `backend-api-security` — Validación server-side, rate limiting, CSRF
+- `frontend-mobile-security` — XSS, sanitización
+- `sast-configuration` — SAST tools config
+- `stride-analysis-patterns` — Threat modeling
+- `security-requirement-extraction` — Security reqs desde specs
+
+### 🔄 Consistencia (3 skills) ⭐ CRÍTICOS
+- `verification-before-completion` — Verificar ANTES de finalizar
+- `code-review-excellence` — Review checklist
+- `systematic-debugging` — Debug metodológico
+
+### 🎨 Diseño/Frontend (6 skills)
+- `frontend-design` — Profesional design (Vercel/Linear style)
+- `web-design-guidelines` — UX guidelines
+- `ui-ux-pro-max` — Diseño avanzado + componentes
+- `tailwind-design-system` — TailwindCSS best practices
+- `shadcn-ui` — Shadcn components
+- `responsive-design` — Mobile-first responsive
+
+### 🛠️ Backend/Dev (6 skills)
+- `laravel-specialist` — Laravel best practices
+- `vercel-react-best-practices` — React + Next.js
+- `test-driven-development` — TDD workflow
+- `api-design-principles` — REST API design
+- `postgresql-table-design` — DB schema design
+- `error-handling-patterns` — Error handling strategies
+
+**Activación:** Automática según contexto del código/comando
 
 ---
 
-*Made with ❤️ by the SpecLeap Community*
+## ⚠️ Verificaciones ANTES de Codificar
+
+### SIEMPRE Verificar:
+
+**1. ¿Existe CONTRATO.md?**
+```bash
+find proyectos/ -name "CONTRATO.md"
+```
+- ❌ NO → Pedir crearlo: `./scripts/generate-contrato.sh` o comando `inicio`
+- ✅ SÍ → Leerlo ANTES de implementar
+
+**2. ¿Hay ticket Asana asignado?**
+- ❌ NO → Preguntar: "¿Qué ticket Asana implementamos? (ej: PROJ-123)"
+- ✅ SÍ → Descargar spec del ticket vía API Asana
+
+**3. ¿Stack tecnológico definido?**
+- Leer sección "Stack Tecnológico" de CONTRATO.md
+- NUNCA asumir tecnologías sin verificar
+
+**4. ¿Tests existen para funcionalidad?**
+- ❌ NO → Crearlos ANTES de considerar completo
+- ✅ SÍ → Ejecutarlos y verificar que pasan
+
+---
+
+## 🚫 Prohibiciones Absolutas
+
+1. **NUNCA** codificar sin CONTRATO.md aprobado
+2. **NUNCA** hacer commit directo a `main`
+3. **NUNCA** hardcodear credenciales (usar `.env`)
+4. **NUNCA** ignorar el comando del usuario
+   - Si dice `planificar` → ejecutar planificar
+   - Si dice `implementar` → ejecutar implementar
+5. **NUNCA** asumir stack tecnológico (leer CONTRATO.md)
+6. **NUNCA** modificar CONTRATO.md después de aprobado (usar ANEXOS.md)
+7. **NUNCA** respuesta genérica a "Hola" (siempre listar comandos)
+
+---
+
+## 🔧 Integración con Herramientas
+
+### Asana (OBLIGATORIO)
+
+**SpecLeap usa Asana** para gestión de backlog.
+
+**Token configurado en:**
+- `.specleap/config.json` → `asana.token`
+- `.env` → `ASANA_WORKSPACE_ID`
+
+**Scripts:**
+- `scripts/generate-asana-structure.sh` — Genera estructura completa
+- `scripts/create-asana-tasks.sh` — Crea tasks individuales
+- API Asana para leer specs de tickets
+
+**Comando `planificar`:**
+1. Lee CONTRATO.md
+2. Ejecuta `generate-asana-structure.sh`
+3. Crea épicas por feature
+4. Crea user stories por épica
+5. Reporta resumen
+
+### CodeRabbit (Recomendado)
+
+**Review automático en PRs.**
+
+**Configuración:** `.coderabbit.yaml` (incluido en template)
+
+**Checks:**
+- Cumplimiento de specs
+- Tests >= 80% coverage
+- Seguridad (OWASP)
+- Estándares de código
+- Feedback en español
+
+**Comando `implementar` espera:**
+- CodeRabbit approval antes de marcar completo
+- Aplicar feedback si hay correcciones
+
+### Git Hooks (Instalado automáticamente)
+
+**Scripts:** `scripts/install-git-hooks.sh`
+
+**Hooks:**
+- `pre-commit` — Linters, formatters, tests
+- `commit-msg` — Valida formato de commit
+- `pre-push` — Tests completos
+
+---
+
+## 📊 Formato de Respuestas
+
+### Estilo General
+- **Conciso:** Directo al punto, sin relleno
+- **Estructurado:** Usar listas, headings, code blocks
+- **Bilingüe:** Español (default), English si usuario prefiere
+- **Contexto:** Siempre referenciar CONTRATO.md cuando exista
+
+### Ejemplo: Comando Completado
+
+```
+✅ Implementación completada: Feature de autenticación
+
+📋 Cambios realizados:
+  • app/Http/Controllers/AuthController.php — Login + Register
+  • app/Models/User.php — Modelo usuario
+  • database/migrations/create_users_table.php — Schema
+  • tests/Feature/AuthTest.php — Tests auth
+
+🧪 Tests:
+  • test_user_can_register: ✅ PASS
+  • test_user_can_login: ✅ PASS  
+  • test_invalid_credentials: ✅ PASS
+  • Coverage: 92%
+
+📄 Documentación:
+  • README.md actualizado (instrucciones login)
+  • CONTRATO.md: sin cambios
+
+🔗 Próximos pasos:
+  1. Review: CodeRabbit revisará automáticamente
+  2. Merge: Una vez aprobado, merge a main
+  3. Deploy: [según proceso del equipo]
+
+🔗 PR: https://github.com/user/repo/pull/123
+```
+
+---
+
+## 📖 Referencias
+
+- **Comandos:** `.commands/*.md`
+- **Agentes:** `.agents/*.md`
+- **Reglas:** `rules/*.md`
+- **Template:** `proyectos/_template/`
+- **Scripts:** `scripts/README.md`
+
+---
+
+## 💡 Cuando Tengas Dudas
+
+1. Leer el archivo `.commands/` correspondiente
+2. Adoptar el rol `.agents/` especificado
+3. Seguir las reglas de `rules/`
+4. Preguntar al usuario para clarificación
+
+**SIEMPRE priorizar claridad sobre velocidad.**
+
+---
+
+*Hecho con ❤️ por la Comunidad SpecLeap*
