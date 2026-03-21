@@ -32,7 +32,6 @@
   },
   "bin": "bin/specleap",
   "scripts": {
-    "postinstall": "bash setup.sh",
     "setup": "bash setup.sh",
     "skills": "bash scripts/install-skills.sh",
     "generate": "bash scripts/generate-contrato.sh"
