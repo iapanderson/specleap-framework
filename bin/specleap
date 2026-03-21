@@ -1,16 +1,48 @@
 #!/usr/bin/env node
 
-const { spawn } = require('child_process');
+const { spawn, execSync } = require('child_process');
 const path = require('path');
+const fs = require('fs');
 
-// Directorio del paquete (donde están todos los archivos)
+// Directorio del paquete npm (donde están todos los archivos)
 const packageDir = path.join(__dirname, '..');
-const setupPath = path.join(packageDir, 'setup.sh');
 
-// Ejecutar setup.sh DESDE el directorio del paquete
+// Directorio donde el usuario ejecutó npx (su directorio de trabajo)
+const userCwd = process.cwd();
+
+// Carpeta de destino
+const targetDir = path.join(userCwd, 'specleap-framework');
+
+console.log('\n🚀 Copiando SpecLeap Framework...\n');
+
+// Verificar si ya existe
+if (fs.existsSync(targetDir)) {
+  console.error(`❌ Error: El directorio '${targetDir}' ya existe.`);
+  console.error('   Por favor elimínalo primero o ejecuta desde otro directorio.\n');
+  process.exit(1);
+}
+
+// Crear directorio destino
+try {
+  fs.mkdirSync(targetDir, { recursive: true });
+  
+  // Copiar todos los archivos del paquete
+  execSync(`cp -R "${packageDir}"/* "${targetDir}"/`, { stdio: 'inherit' });
+  execSync(`cp -R "${packageDir}"/.??* "${targetDir}"/ 2>/dev/null || true`, { stdio: 'ignore' });
+  
+  console.log(`✅ Archivos copiados a: ${targetDir}\n`);
+  
+} catch (err) {
+  console.error('❌ Error copiando archivos:', err.message);
+  process.exit(1);
+}
+
+// Ejecutar setup.sh DESDE el directorio copiado
+const setupPath = path.join(targetDir, 'setup.sh');
+
 const setup = spawn('bash', [setupPath], {
   stdio: 'inherit',
-  cwd: packageDir  // <-- ESTO ES LO CRÍTICO
+  cwd: targetDir
 });
 
 setup.on('close', (code) => {
