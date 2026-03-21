@@ -3,12 +3,14 @@
 const { spawn } = require('child_process');
 const path = require('path');
 
-// Ejecutar setup.sh desde el directorio del paquete
-const setupPath = path.join(__dirname, '..', 'setup.sh');
+// Directorio del paquete (donde están todos los archivos)
+const packageDir = path.join(__dirname, '..');
+const setupPath = path.join(packageDir, 'setup.sh');
 
+// Ejecutar setup.sh DESDE el directorio del paquete
 const setup = spawn('bash', [setupPath], {
   stdio: 'inherit',
-  cwd: process.cwd()
+  cwd: packageDir  // <-- ESTO ES LO CRÍTICO
 });
 
 setup.on('close', (code) => {
