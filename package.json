@@ -41,7 +41,7 @@
   },
   "files": [
     ".agents/**",
-    ".claude",
+    ".claude/**",
     ".clinerules",
     ".coderabbit.yaml",
     ".commands/**",
@@ -56,6 +56,7 @@
     "scripts/**",
     "setup.sh",
     "install.sh",
+    "CLAUDE.md",
     "README.md",
     "SETUP.md",
     "LICENSE"
