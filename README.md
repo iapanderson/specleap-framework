@@ -47,7 +47,7 @@ npx specleap-framework@latest
 **Instalador interactivo que pide todos los tokens:**
 - ✅ GitHub token (control versiones + CodeRabbit)
 - ✅ Asana token + workspace (backlog automático)
-- ✅ Instala 20 Agent Skills automáticamente
+- ✅ Instala 33 Agent Skills automáticamente
 - ✅ Configura CodeRabbit (.coderabbit.yaml)
 - ✅ Crea estructura completa
 - ⏱️ **Tiempo total: 10-15 minutos**
@@ -99,37 +99,58 @@ SpecLeap incluye **20 skills especializadas** que transforman la calidad del có
 | **APIs** | Diseño inconsistente | REST/GraphQL best practices |
 | **Tests** | Coverage <60% | TDD methodology, coverage >=90% |
 
-### TIER 1 (20 Skills Esenciales)
+### 33 Agent Skills Profesionales
 
-#### 🔒 Seguridad (5)
-- SAST configuration
-- STRIDE threat modeling
-- Security requirement extraction
-- Backend/API security
-- Frontend/Mobile security
+SpecLeap instala automáticamente **33 skills de calidad profesional** durante el setup.
 
-#### 🔄 Consistencia (3)
+#### 🔄 Consistencia & Code Quality (5)
 - **Verification-before-completion** ⭐ **CRÍTICO**
-- Code review excellence
 - Systematic debugging
+- Code review (requesting + receiving)
+- Security reviewer
 
-#### 🎨 Diseño/Frontend (6)
-- Web design guidelines (Vercel)
+#### 🎨 Diseño & Frontend (7)
 - Frontend design (Anthropic)
-- UI/UX pro max
-- Tailwind design system
-- shadcn/ui components
-- Responsive design
+- Web design guidelines (Vercel)
+- Vercel composition patterns
+- Agent browser automation
+- Canvas design
+- Algorithmic art
+- Skill creator
 
-#### 🛠️ Backend/Dev (6)
+#### 🛠️ Backend & APIs (8)
 - Laravel specialist
-- React best practices
-- Test-driven development
-- API design principles
-- PostgreSQL table design
-- Error handling patterns
+- API designer
+- Database optimizer
+- Code documenter
+- Python pro
+- React expert
+- TypeScript pro
+- Debugging wizard
 
-**Instalación:** Automática con `setup-mcp.sh` o manual — [Ver SETUP.md](SETUP.md)
+#### ☁️ DevOps & Infrastructure (5)
+- DevOps engineer
+- Cloud architect
+- Architecture designer
+- Terraform engineer
+- Monitoring expert
+
+#### 🧪 Testing (5)
+- Test-driven development
+- Playwright expert (E2E)
+- Test master
+- Code reviewer
+- Receiving code review
+
+#### 📱 Mobile Development (2)
+- React Native expert
+- Flutter expert
+
+#### 💡 Otros (1)
+- Brainstorming
+- PDF analysis
+
+**Instalación:** Automática durante `setup.sh` — Total: **33 skills** — [Ver SETUP.md](SETUP.md)
 
 ---
 
@@ -551,7 +572,7 @@ Merge (solo si las 3 capas pasan)
 - 💬 `.commands/ayuda.md` — Lista completa de comandos
 - 🛠️ `openspec/README.md` — CLI formal OpenSpec
 - 🤖 `.agents/` — Agentes especializados (backend, frontend, producto)
-- ⭐ `scripts/install-skills.sh` — 20 Agent Skills TIER 1
+- ⭐ `scripts/install-skills.sh` — 33 Agent Skills profesionales
 - 📋 `proyectos/_template/CONTRATO.md` — Template contrato
 - 🏗️ `CLAUDE.md` — Configuración para Claude Code
 

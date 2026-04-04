@@ -7,6 +7,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-04-04
+
+### Added
+
+#### 🎯 13 New Agent Skills (Total: 33)
+
+**Design & Frontend (3):**
+- `web-design-guidelines` (vercel-labs) — Vercel-style design patterns
+- `vercel-composition-patterns` (vercel-labs) — React composition best practices
+- `agent-browser` (vercel-labs) — Browser automation for testing
+
+**Brainstorming & Documentation (2):**
+- `brainstorming` (obra/superpowers) — Ideation techniques for spec refinement
+- `pdf` (anthropics) — PDF analysis and manipulation
+
+**DevOps & Infrastructure (2):**
+- `terraform-engineer` (jeffallan) — Infrastructure as Code with Terraform
+- `monitoring-expert` (jeffallan) — Performance profiling and monitoring
+
+**Mobile Development (2):**
+- `react-native-expert` (jeffallan) — React Native mobile development
+- `flutter-expert` (jeffallan) — Flutter cross-platform development
+
+**Documentation (1):**
+- `code-documenter` (jeffallan) — Automatic code documentation generation
+
+**Security (1):**
+- `security-reviewer` (jeffallan) — Security review and pentesting patterns
+
+**Testing Advanced (2):**
+- `playwright-expert` (jeffallan) — E2E testing with Playwright
+- `test-master` (jeffallan) — Advanced testing methodologies
+
+**Total:** 20 → **33 skills** (+65% improvement)
+
+### Changed
+- Updated `scripts/install-skills.sh` header to reflect 33 total skills
+- Updated `README.md` skills section with complete categorization
+- Bumped version to `2.1.0` (minor version: new features added)
+
 ### Added - 2026-03-20
 
 #### 🛡️ 3-Layer Validation System

@@ -1,6 +1,6 @@
 #!/bin/bash
-# SpecLeap — Instalador de Agent Skills TIER 1
-# Versión 2.0 — Robusto y con progreso visual
+# SpecLeap — Instalador de Agent Skills TIER 1 + TIER 2
+# Versión 2.1 — 33 skills profesionales
 
 set -e
 
@@ -10,7 +10,7 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
-echo -e "${BLUE}━━━ Installing Agent Skills TIER 1 ━━━${NC}"
+echo -e "${BLUE}━━━ Installing Agent Skills (33 total) ━━━${NC}"
 echo ""
 
 # Lista de skills (repo:path:name)
@@ -46,6 +46,37 @@ SKILLS=(
     
     # Frontend (1) - jeffallan/claude-skills
     "jeffallan/claude-skills:skills/typescript-pro:typescript-pro"
+    
+    # ━━━ TIER 2 Skills (13 nuevas) ━━━
+    
+    # Design/Frontend (3) - vercel-labs
+    "vercel-labs/agent-skills:skills/web-design-guidelines:web-design-guidelines"
+    "vercel-labs/agent-skills:skills/composition-patterns:vercel-composition-patterns"
+    "vercel-labs/agent-browser:skills/agent-browser:agent-browser"
+    
+    # Brainstorming (1) - obra/superpowers
+    "obra/superpowers:skills/brainstorming:brainstorming"
+    
+    # PDF (1) - anthropics/skills
+    "anthropics/skills:skills/pdf:pdf"
+    
+    # DevOps/Infrastructure (2) - jeffallan/claude-skills
+    "jeffallan/claude-skills:skills/terraform-engineer:terraform-engineer"
+    "jeffallan/claude-skills:skills/monitoring-expert:monitoring-expert"
+    
+    # Mobile (2) - jeffallan/claude-skills
+    "jeffallan/claude-skills:skills/react-native-expert:react-native-expert"
+    "jeffallan/claude-skills:skills/flutter-expert:flutter-expert"
+    
+    # Documentation (1) - jeffallan/claude-skills
+    "jeffallan/claude-skills:skills/code-documenter:code-documenter"
+    
+    # Security (1) - jeffallan/claude-skills
+    "jeffallan/claude-skills:skills/security-reviewer:security-reviewer"
+    
+    # Testing Advanced (2) - jeffallan/claude-skills
+    "jeffallan/claude-skills:skills/playwright-expert:playwright-expert"
+    "jeffallan/claude-skills:skills/test-master:test-master"
 )
 
 TOTAL=${#SKILLS[@]}
