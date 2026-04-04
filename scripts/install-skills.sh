@@ -1,6 +1,6 @@
 #!/bin/bash
 # SpecLeap — Instalador de Agent Skills TIER 1 + TIER 2
-# Versión 2.1 — 33 skills profesionales
+# Versión 2.1.1 — 34 skills profesionales
 
 set -e
 
@@ -10,7 +10,7 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
-echo -e "${BLUE}━━━ Installing Agent Skills (33 total) ━━━${NC}"
+echo -e "${BLUE}━━━ Installing Agent Skills (34 total) ━━━${NC}"
 echo ""
 
 # Lista de skills (repo:path:name)
@@ -71,8 +71,9 @@ SKILLS=(
     # Documentation (1) - jeffallan/claude-skills
     "jeffallan/claude-skills:skills/code-documenter:code-documenter"
     
-    # Security (1) - jeffallan/claude-skills
+    # Security (2) - jeffallan/claude-skills + alirezarezvani/claude-skills
     "jeffallan/claude-skills:skills/security-reviewer:security-reviewer"
+    "alirezarezvani/claude-skills:ra-qm-team/gdpr-dsgvo-expert:gdpr-dsgvo-expert"
     
     # Testing Advanced (2) - jeffallan/claude-skills
     "jeffallan/claude-skills:skills/playwright-expert:playwright-expert"

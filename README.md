@@ -47,7 +47,7 @@ npx specleap-framework@latest
 **Instalador interactivo que pide todos los tokens:**
 - ✅ GitHub token (control versiones + CodeRabbit)
 - ✅ Asana token + workspace (backlog automático)
-- ✅ Instala 33 Agent Skills automáticamente
+- ✅ Instala 34 Agent Skills automáticamente
 - ✅ Configura CodeRabbit (.coderabbit.yaml)
 - ✅ Crea estructura completa
 - ⏱️ **Tiempo total: 10-15 minutos**
@@ -99,15 +99,16 @@ SpecLeap incluye **20 skills especializadas** que transforman la calidad del có
 | **APIs** | Diseño inconsistente | REST/GraphQL best practices |
 | **Tests** | Coverage <60% | TDD methodology, coverage >=90% |
 
-### 33 Agent Skills Profesionales
+### 34 Agent Skills Profesionales
 
-SpecLeap instala automáticamente **33 skills de calidad profesional** durante el setup.
+SpecLeap instala automáticamente **34 skills de calidad profesional** durante el setup.
 
-#### 🔄 Consistencia & Code Quality (5)
+#### 🔄 Consistencia & Code Quality (6)
 - **Verification-before-completion** ⭐ **CRÍTICO**
 - Systematic debugging
 - Code review (requesting + receiving)
 - Security reviewer
+- GDPR/DSGVO compliance expert
 
 #### 🎨 Diseño & Frontend (7)
 - Frontend design (Anthropic)
@@ -150,7 +151,7 @@ SpecLeap instala automáticamente **33 skills de calidad profesional** durante e
 - Brainstorming
 - PDF analysis
 
-**Instalación:** Automática durante `setup.sh` — Total: **33 skills** — [Ver SETUP.md](SETUP.md)
+**Instalación:** Automática durante `setup.sh` — Total: **34 skills** — [Ver SETUP.md](SETUP.md)
 
 ---
 
@@ -572,7 +573,7 @@ Merge (solo si las 3 capas pasan)
 - 💬 `.commands/ayuda.md` — Lista completa de comandos
 - 🛠️ `openspec/README.md` — CLI formal OpenSpec
 - 🤖 `.agents/` — Agentes especializados (backend, frontend, producto)
-- ⭐ `scripts/install-skills.sh` — 33 Agent Skills profesionales
+- ⭐ `scripts/install-skills.sh` — 34 Agent Skills profesionales
 - 📋 `proyectos/_template/CONTRATO.md` — Template contrato
 - 🏗️ `CLAUDE.md` — Configuración para Claude Code
 
